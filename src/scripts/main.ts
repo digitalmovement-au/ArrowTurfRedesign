@@ -102,6 +102,17 @@ if (motion) {
     });
   });
 
+  // Project wall: columns drift at different speeds as the section passes.
+  $$("[data-pw-window]").forEach((win) => {
+    $$("[data-pw-col]", win).forEach((col) => {
+      const sp = Number(col.dataset.speed || 10);
+      gsap.fromTo(col, { yPercent: sp }, {
+        yPercent: -sp * 1.6, ease: "none",
+        scrollTrigger: { trigger: win, start: "top bottom", end: "bottom top", scrub: 0.5 },
+      });
+    });
+  });
+
   // Gentle hero photo drift.
   $$("[data-hero-img]").forEach((im) => {
     gsap.to(im, { yPercent: 10, ease: "none", scrollTrigger: { trigger: im.closest("section"), start: "top top", end: "bottom top", scrub: true } });
