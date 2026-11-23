@@ -1,0 +1,82 @@
+---
+/** Four reasons arranged around a farm photo sealed with a slowly turning "stamp" ring. */
+import { img } from "../../data/site";
+import { md } from "../../lib/md";
+import Icon from "../Icon.astro";
+interface Props { eyebrow?: string; heading: string; items: { title: string; body: string; icon?: string }[]; image: string; imageAlt?: string }
+const { eyebrow, heading, items, image, imageAlt = "" } = Astro.props;
+const ring = "Family owned and operated — Grown on the Hawkesbury River — Over 45 years of experience — ";
+---
+<div class="why">
+  <div class="why__head">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2>{heading}</h2>
+  </div>
+
+  <div class="why__grid">
+    <figure class="why__seal" aria-hidden="true">
+      <svg class="why__ring" viewBox="0 0 200 200">
+        <defs><path id="why-ring-path" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs>
+        <text><textPath href="#why-ring-path" textLength="548" lengthAdjust="spacing">{ring}</textPath></text>
+      </svg>
+      <div class="why__photo"><img src={img(image)} alt={imageAlt} loading="lazy" decoding="async" /></div>
+      <span class="why__badge"><strong>45+</strong><span>years on the land</span></span>
+    </figure>
+
+    {items.map((it, i) => (
+      <article class:list={["why__card", `why__card--${i + 1}`]}>
+        <span class="why__ico"><Icon name={it.icon ?? "leaf"} size={26} /></span>
+        <h3>{it.title}</h3>
+        <div class="prose" set:html={md(it.body)} />
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .why__head { text-align: center; max-width: 52rem; margin: 0 auto clamp(3rem, 6vw, 4.5rem); }
+  .why__head h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); }
+
+  .why__grid {
+    display: grid; align-items: center; gap: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 3rem);
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 400px) minmax(0, 1fr);
+    grid-template-areas: "c1 seal c2" "c3 seal c4";
+  }
+  .why__card--1 { grid-area: c1; } .why__card--2 { grid-area: c2; }
+  .why__card--3 { grid-area: c3; } .why__card--4 { grid-area: c4; }
+
+  .why__card {
+    position: relative; height: 100%; padding: clamp(1.5rem, 2.5vw, 2rem); border-radius: var(--radius-lg);
+    background: var(--color-dew); text-align: center; display: grid; justify-items: center; align-content: start; gap: .75rem;
+    transition: transform .5s var(--ease-turf), background .4s, box-shadow .5s;
+  }
+  .why__card:hover { transform: translateY(-6px); background: white; box-shadow: 0 24px 50px -28px rgba(22,48,31,.45); }
+  .why__card h3 { font-size: clamp(1.2rem, 1.6vw, 1.4rem); max-width: 18ch; }
+  .why__card :global(.prose) { max-width: 34ch; }
+  .why__card :global(.prose p) { font-size: .98rem; }
+  .why__ico { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--color-paddock); color: var(--color-clover); transition: background .4s, color .4s, transform .6s var(--ease-turf); }
+  .why__card:hover .why__ico { background: var(--color-clover); color: var(--color-paddock); transform: rotate(-8deg) scale(1.06); }
+
+  .why__seal { grid-area: seal; position: relative; margin: 0; aspect-ratio: 1; width: 100%; }
+  .why__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: why-spin 40s linear infinite; }
+  .why__ring text { font-family: var(--font-display); font-weight: 700; font-size: 11.5px; letter-spacing: .02em; fill: var(--color-leaf); }
+  .why__photo { position: absolute; inset: 15%; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 8px white, 0 0 0 9px var(--color-dew-2), 0 30px 60px -25px rgba(22,48,31,.55); }
+  .why__photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.4s var(--ease-turf); }
+  .why__seal:hover .why__photo img { transform: scale(1.14); }
+  .why__badge {
+    position: absolute; right: 4%; bottom: 8%; display: grid; place-items: center; text-align: center; width: 31%; aspect-ratio: 1; border-radius: 50%;
+    background: var(--color-clover); color: var(--color-paddock); line-height: 1; box-shadow: 0 14px 30px -12px rgba(22,48,31,.5);
+  }
+  .why__badge strong { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 2.6vw, 2.2rem); letter-spacing: -.03em; }
+  .why__badge span { font-size: clamp(.62rem, .8vw, .75rem); font-weight: 600; max-width: 9ch; margin-top: -.6rem; line-height: 1.15; }
+  @keyframes why-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .why__ring { animation: none; } }
+
+  @media (max-width: 960px) {
+    .why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "seal seal" "c1 c2" "c3 c4"; }
+    .why__seal { width: min(360px, 80vw); justify-self: center; margin-bottom: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .why__grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "seal" "c1" "c2" "c3" "c4"; }
+  }
+</style>
