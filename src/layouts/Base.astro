@@ -16,7 +16,10 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, ogImage, breadcrumb = [], faqs = [], noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, business.url).href;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname.slice(baseUrl.length) || "/";
+const canonical = new URL(path, business.url).href;
+const preview = import.meta.env.PUBLIC_NOINDEX === "true";
 const og = img(ogImage ?? "2026/07/002-cover-photo-1536x672-1.webp");
 
 const org = {
@@ -60,7 +63,7 @@ const gtm = import.meta.env.PUBLIC_GTM_ID as string | undefined;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || preview) && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#16301f" />
     <link rel="icon" href={img("2024/09/cropped-cropped-logo-32x32.png")} sizes="32x32" />
     <meta property="og:type" content="website" />

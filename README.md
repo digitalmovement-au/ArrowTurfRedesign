@@ -39,6 +39,14 @@ npm run dev        # http://localhost:4321
 npm run build      # static output in dist/
 ```
 
+## Preview on GitHub Pages
+
+Every push to `main` builds a review copy via `.github/workflows/pages.yml`. It's served at `https://digitalmovement-au.github.io/ArrowTurfRedesign/` with `noindex` set, so Google won't index it.
+
+- **One-time setup:** in repo Settings → Pages, set Source to **GitHub Actions**.
+- **The quote form doesn't send on Pages** (static hosting). Visitors see the "call 0490 779 707" fallback message.
+- **The production build is unaffected:** with no `BASE_PATH` it serves from the domain root.
+
 ## Before go-live
 
 1. **Images.** These are currently hotlinked from the WordPress server, and all 80 are verified live. Run `npm run fetch-images`, then set `PUBLIC_UPLOADS_BASE=/uploads` so the site no longer depends on WordPress. Commit `public/uploads` (remove it from `.gitignore`), or host it on a CDN.
