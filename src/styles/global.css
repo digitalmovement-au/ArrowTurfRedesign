@@ -175,6 +175,8 @@ main .btn, .cta .btn, .mnav__cta .btn { min-width: 250px; }
 @media (max-width: 720px) {
   main .btn:not(.calc__send):not(.qf__submit), .cta .btn { width: 100%; min-width: 0; }
   .hero__actions { grid-template-columns: 1fr; width: 100%; }
+  .hero__actions .btn--ghost { --bg: var(--color-leaf); --fg: white; box-shadow: none; color: white; }
+  .hero__actions .btn--ghost:hover { --bg: var(--color-leaf-dark); }
 
   .section-head, .split__copy, .prose-block, .hero__copy, .calc__intro, .faq__head, .feat__head, .steps__head,
   .specs__intro, .tbl > div, .areas__head, .cta__in > div:first-child, .ct__in > div:first-child, .jr__head, .jr__stage,
