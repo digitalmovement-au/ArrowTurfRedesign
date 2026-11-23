@@ -9,11 +9,10 @@ const { eyebrow, heading, intro, images, limit, id } = Astro.props;
   <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} id={id} />
   <ul class="gal__grid">
     {images.map((im, i) => (
-      <li class:list={["gal__item", limit && i >= limit && "is-more"]} hidden={limit && i >= limit ? true : undefined} data-roll data-roll-delay={(i % 3) * 0.12}>
+      <li class:list={["gal__item", limit && i >= limit && "is-more"]} hidden={limit && i >= limit ? true : undefined}>
         <button type="button" class="gal__btn" data-full={img(im.src)} data-alt={im.alt} aria-label={`View larger: ${im.alt}`}>
-          <img data-roll-media src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
+          <img src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
         </button>
-        <span class="roll__cyl" aria-hidden="true"></span>
       </li>
     ))}
   </ul>

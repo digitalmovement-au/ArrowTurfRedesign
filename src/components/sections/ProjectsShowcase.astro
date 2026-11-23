@@ -24,12 +24,11 @@ const speeds = [14, -10, 18];
       {cols.map((col, c) => (
         <ul class="pw__col" data-pw-col data-speed={speeds[c]}>
           {col.map((im, r) => (
-            <li class="pw__item" data-roll data-roll-delay={c * 0.12 + r * 0.05}>
+            <li class="pw__item">
               <button type="button" class="gal__btn pw__tile" data-full={img(im.src)} data-alt={im.alt} aria-label={`View larger: ${im.alt}`}>
-                <img data-roll-media src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
+                <img src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
                 <span class="pw__cap" aria-hidden="true"><Icon name="plus" size={18} />View project</span>
               </button>
-              <span class="roll__cyl" aria-hidden="true"></span>
             </li>
           ))}
         </ul>
