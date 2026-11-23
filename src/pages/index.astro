@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import Split from "../components/sections/Split.astro";
+import Icon from "../components/Icon.astro";
 import WhyChoose from "../components/sections/WhyChoose.astro";
 import VarietyCards from "../components/sections/VarietyCards.astro";
 import ProjectsShowcase from "../components/sections/ProjectsShowcase.astro";
@@ -21,6 +22,7 @@ import { whyChooseUs } from "../data/site";
       <ul class="stats__list">
         {home.stats.map((s) => (
           <li>
+            <span class="stats__ico"><Icon name={s.icon} size={26} /></span>
             <span class="stats__v" data-count={s.count ?? undefined}>{s.value}</span>
             <span class="stats__l">{s.label}</span>
           </li>
@@ -62,10 +64,14 @@ import { whyChooseUs } from "../data/site";
 
 <style>
   .stats { background: var(--color-paddock); color: white; padding: clamp(1.75rem, 3vw, 2.5rem) 0 clamp(2.25rem, 4vw, 3.25rem); margin-top: -1px; border-bottom: 1px solid rgba(255,255,255,.06); }
-  .stats__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
-  .stats__list li { display: grid; gap: .35rem; padding: .5rem clamp(1rem, 3vw, 2.5rem); border-left: 1px solid rgba(255,255,255,.12); }
-  .stats__list li:first-child { border-left: 0; padding-left: 0; }
-  .stats__v { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.6rem); letter-spacing: -.025em; line-height: 1; color: white; }
-  .stats__l { color: var(--color-clover); font-size: .98rem; }
-  @media (max-width: 720px) { .stats__list { grid-template-columns: 1fr; gap: 1.25rem; } .stats__list li { border-left: 0; padding: 0; } }
+  .stats__list { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1100px; }
+  .stats__list li { position: relative; display: grid; justify-items: center; text-align: center; gap: .5rem; padding: .75rem clamp(1rem, 3vw, 2.5rem); }
+  /* Dividers: a single grass blade between stats */
+  .stats__list li + li::before { content: ""; position: absolute; left: 0; top: 50%; width: 12px; height: 46px; translate: -50% -50%; background: rgba(184,216,107,.35);
+    clip-path: path("M6 0 C7.8 15 10.5 30 12 46 L8.4 46 C7.8 30 7 16 6 0 Z M6 0 C4.2 17 1.8 30 0 46 L3.6 46 C4.2 31 5 17 6 0 Z"); }
+  .stats__ico { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; color: var(--color-clover); background: rgba(184,216,107,.1); box-shadow: inset 0 0 0 1.5px rgba(184,216,107,.35); margin-bottom: .35rem; transition: transform .6s var(--ease-turf), background .4s, color .4s; }
+  .stats__list li:hover .stats__ico { transform: translateY(-4px) rotate(-6deg); background: var(--color-clover); color: var(--color-paddock); }
+  .stats__v { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 3rem); letter-spacing: -.03em; line-height: 1; color: white; }
+  .stats__l { color: rgba(255,255,255,.72); font-size: 1rem; }
+  @media (max-width: 720px) { .stats__list { grid-template-columns: 1fr; gap: 1.75rem; } .stats__list li + li::before { left: 50%; top: -.9rem; height: 24px; width: 7px; } }
 </style>

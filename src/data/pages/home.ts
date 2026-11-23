@@ -12,9 +12,9 @@ export const home = {
     image: "2026/07/002-cover-photo-1536x672-1.webp",
   },
   stats: [
-    { value: "Our own farm", label: "Grown on the Hawkesbury River", count: null },
-    { value: "Cut to order", label: "Ready within a day or two", count: null },
-    { value: "45+ years", label: "Family owned and operated", count: 45 },
+    { value: "Our own farm", label: "Grown on the Hawkesbury River", count: null, icon: "leaf" },
+    { value: "Cut to order", label: "Ready within a day or two", count: null, icon: "roll" },
+    { value: "45+ years", label: "Family owned and operated", count: 45, icon: "users" },
   ],
   projects: {
     eyebrow: "What have we done?",

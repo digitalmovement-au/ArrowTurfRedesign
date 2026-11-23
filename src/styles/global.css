@@ -139,6 +139,7 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transfor
   transition: border-color .2s, background .2s;
 }
 .field textarea { min-height: 96px; resize: vertical; }
+.field ::placeholder { color: color-mix(in srgb, var(--color-ink-soft) 55%, transparent); opacity: 1; }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--color-dew-2); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--color-leaf); background: white; }
 .field [aria-invalid="true"] { border-color: #b3261e; }
