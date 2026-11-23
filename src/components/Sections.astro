@@ -55,4 +55,5 @@ const tone = (s: Section) => (s.kind === "calculator" || s.kind === "compare" ||
   .prose-block h2 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); }
   .prose-block__cta { grid-column: 2; justify-self: start; }
   @media (max-width: 900px) { .prose-block { grid-template-columns: 1fr; } .prose-block__cta { grid-column: 1; } }
+  @media (max-width: 720px) { .prose-block { border-top: 0; padding-top: 0; } }
 </style>
