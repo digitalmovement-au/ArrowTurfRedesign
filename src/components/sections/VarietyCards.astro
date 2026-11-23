@@ -7,7 +7,7 @@ interface Props { eyebrow?: string; heading: string; intro?: string; exclude?: s
 const { eyebrow, heading, intro, exclude, only, center = false } = Astro.props;
 const list = varieties.filter((v) => v.slug !== exclude && (!only || only.includes(v.slug)));
 ---
-<div class="vc">
+<div class="vc" data-vc>
   <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} center={center} />
   <ul class="vc__row" style={`--n:${list.length}`} data-variety-row>
     {list.map((v, i) => (
@@ -53,5 +53,9 @@ const list = varieties.filter((v) => v.slug !== exclude && (!only || only.includ
     .vc__card .vc__blurb, .vc__card .vc__more { max-height: 12rem; opacity: 1; }
     .vc__card:not(.is-open) .vc__name { font-size: 1.6rem; }
     .vc__link img { transform: none; }
+    /* With motion: the page's vertical scroll drives the row sideways (pinned), no manual swiping */
+    :global(html.js-motion) .vc__row { overflow: visible; scroll-snap-type: none; width: max-content; padding-bottom: 0; }
+    :global(html.js-motion) .vc { overflow-x: clip; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+    :global(html.js-motion) .vc__row { margin-inline: 0; padding-inline: 0; }
   }
 </style>

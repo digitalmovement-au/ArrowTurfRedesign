@@ -96,6 +96,11 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transfor
 .btn--clover { --bg: var(--color-clover); --fg: var(--color-paddock); }
 .btn--clover:hover { --bg: #c7e283; }
 
+/* Equal-width calls to action */
+main .btn, .cta .btn, .mnav__cta .btn { min-width: 250px; }
+.hero__actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 250px)); }
+.hero__actions .btn { min-width: 0; width: 100%; }
+
 /* ───────────── Sections ───────────── */
 .section { padding-block: clamp(4.5rem, 10vw, 8.5rem); position: relative; }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
@@ -164,4 +169,27 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transfor
   .jr__stage { width: auto !important; }
   .jr__road { display: none; }
   .jr__pin { min-height: 0 !important; }
+}
+
+/* ───────────── Mobile: centre content, keep forms / lists / tables / data left-aligned ───────────── */
+@media (max-width: 720px) {
+  main .btn:not(.calc__send):not(.qf__submit), .cta .btn { width: 100%; min-width: 0; }
+  .hero__actions { grid-template-columns: 1fr; width: 100%; }
+
+  .section-head, .split__copy, .prose-block, .hero__copy, .calc__intro, .faq__head, .feat__head, .steps__head,
+  .specs__intro, .tbl > div, .areas__head, .cta__in > div:first-child, .ct__in > div:first-child, .jr__head, .jr__stage,
+  .feat__item, .step, .ftr__top > div, .ftr__bottom { text-align: center; }
+  .section-head .prose, .split__prose, .prose-block__body, .calc__intro .lead, .faq__sub, .hero__lead, .ftr__brand p, .jr__stage p { margin-inline: auto; }
+  .prose ul, .prose li, .faq__item, .faq__a, .spec, .qf, table, .calc__panel, .cmp__list, .mnav { text-align: left; }
+  .prose ul { display: inline-grid; text-align: left; }
+  .crumbs ol, .ct__crumbs, .ct__social, .ftr__social, .areas__list, .hero__actions { justify-content: center; justify-items: center; }
+  .prose-block .eyebrow { margin-inline: auto; }
+  .prose-block__cta, .split__cta, .tbl__cta { justify-self: stretch; }
+  .feat__item { grid-template-columns: 1fr; justify-items: center; }
+  .step { grid-template-columns: 1fr; justify-items: center; }
+  .cta__list li, .ct__list li { justify-content: center; text-align: left; }
+  .cta__list, .ct__list { justify-items: center; }
+  .ftr__contact a { justify-content: center; }
+  .ftr__bottom { justify-content: center; }
+  .stats__list li { justify-content: center !important; }
 }

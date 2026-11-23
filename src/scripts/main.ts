@@ -160,8 +160,23 @@ if (motion) {
     });
   });
 
-  // Farm-to-lawn journey: pin and drive the truck.
   const mm = gsap.matchMedia();
+
+  // Turf varieties on phones/tablets: pin the row and let vertical scroll slide it sideways.
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  mm.add("(max-width: 900px)", () => {
+    $$("[data-vc]").forEach((vc) => {
+      const row = $("[data-variety-row]", vc)!;
+      const dist = () => Math.max(0, row.scrollWidth - vc.clientWidth + 0);
+      if (dist() < 10) return;
+      gsap.to(row, {
+        x: () => -dist(), ease: "none",
+        scrollTrigger: { trigger: row, start: "center center", end: () => `+=${dist()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 },
+      });
+    });
+  });
+
+  // Farm-to-lawn journey: pin and drive the truck.
   mm.add("(min-width: 900px)", () => {
     $$("[data-journey]").forEach((sec) => {
       const pin = $("[data-journey-pin]", sec)!;
