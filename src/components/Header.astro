@@ -37,29 +37,30 @@ const active = (href: string) => {
     <div class="hdr__cta">
       <a class="hdr__phone" href={business.phoneHref}><Icon name="phone" size={18} /><span>{business.phone}</span></a>
       <a class="btn btn--clover hdr__quote" href="#quote" data-magnetic>Free quote</a>
-      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="mnav" data-burger>
-        <span class="sr-only">Open menu</span><Icon name="menu" />
+      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu" data-burger>
+        <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
       </button>
     </div>
   </div>
 
-  <div class="mnav" id="mnav" hidden data-mnav>
-    <nav aria-label="Mobile">
-      <ul>
-        {nav.map((item) => (
-          <li>
-            <a href={item.href}>{item.label}</a>
-            {item.children && <ul>{item.children.map((c) => <li><a href={c.href}>{c.label}</a></li>)}</ul>}
-          </li>
-        ))}
-      </ul>
-      <div class="mnav__cta">
-        <a class="btn btn--clover" href="#quote">Get a free quote</a>
-        <a class="btn btn--ghost" href={business.phoneHref}><Icon name="phone" />{business.phone}</a>
-      </div>
-    </nav>
-  </div>
 </header>
+
+<div class="mnav" id="mnav" hidden data-mnav data-lenis-prevent>
+  <nav aria-label="Mobile">
+    <ul>
+      {nav.map((item, i) => (
+        <li style={`--i:${i}`}>
+          <a href={item.href} aria-current={active(item.href) ? "page" : undefined}>{item.label}</a>
+          {item.children && <ul>{item.children.map((c) => <li><a href={c.href}>{c.label}</a></li>)}</ul>}
+        </li>
+      ))}
+    </ul>
+    <div class="mnav__cta">
+      <a class="btn btn--clover" href="#quote">Get a free quote</a>
+      <a class="btn btn--ghost" href={business.phoneHref}><Icon name="phone" />{business.phone}</a>
+    </div>
+  </nav>
+</div>
 
 <style>
   .hdr { position: fixed; inset: 0 0 auto; z-index: 50; color: white; transition: background .35s, box-shadow .35s, transform .45s var(--ease-turf); }
@@ -83,15 +84,35 @@ const active = (href: string) => {
   .hdr__cta { flex: none; display: flex; align-items: center; gap: .75rem; }
   .hdr__phone { display: inline-flex; align-items: center; gap: .45rem; font-weight: 600; text-decoration: none; font-variant-numeric: tabular-nums; }
   .hdr__quote { min-height: 44px; padding: .55rem 1.15rem; }
-  .hdr__burger { display: none; background: none; border: 0; color: inherit; padding: .5rem; cursor: pointer; }
-  .mnav { background: var(--color-paddock); max-height: calc(100dvh - var(--header-h)); overflow: auto; }
-  .mnav nav { padding: 1rem var(--gutter) 2rem; }
+  .hdr__burger { display: none; place-items: center; width: 48px; height: 48px; margin-right: -.5rem; background: none; border: 0; color: inherit; cursor: pointer; border-radius: 50%; }
+  .hdr__burger:hover { background: rgba(255,255,255,.08); }
+  .burger { position: relative; display: block; width: 24px; height: 16px; }
+  .burger i { position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px; background: currentColor; transition: transform .45s var(--ease-turf), opacity .25s, top .45s var(--ease-turf), width .45s var(--ease-turf); }
+  .burger i:nth-child(1) { top: 0; }
+  .burger i:nth-child(2) { top: 7px; width: 70%; left: auto; }
+  .burger i:nth-child(3) { top: 14px; }
+  .hdr__burger[aria-expanded="true"] .burger i:nth-child(1) { top: 7px; transform: rotate(45deg); }
+  .hdr__burger[aria-expanded="true"] .burger i:nth-child(2) { opacity: 0; transform: translateX(8px); }
+  .hdr__burger[aria-expanded="true"] .burger i:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+  .mnav {
+    position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0; z-index: 49;
+    background: var(--color-paddock); color: white; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y;
+  }
+  .mnav.is-open { animation: mnav-in .45s var(--ease-turf) both; }
+  .mnav.is-open > nav > ul > li { animation: mnav-item .55s var(--ease-turf) both; animation-delay: calc(var(--i) * 45ms + 80ms); }
+  @keyframes mnav-in { from { opacity: 0; clip-path: inset(0 0 100% 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+  @keyframes mnav-item { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .mnav a[aria-current="page"] { color: var(--color-clover); }
+  .mnav a:not(.btn):hover { color: var(--color-clover); }
+  .mnav__cta .btn--ghost { color: white; }
+  .mnav nav { padding: 1rem var(--gutter) calc(2.5rem + env(safe-area-inset-bottom)); max-width: 640px; margin-inline: auto; }
   .mnav ul { list-style: none; margin: 0; padding: 0; }
   .mnav > nav > ul > li { border-bottom: 1px solid rgba(255,255,255,.08); }
-  .mnav a { display: block; padding: .85rem 0; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .02em; }
+  .mnav a:not(.btn) { display: block; padding: .85rem 0; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .02em; }
   .mnav ul ul { padding: 0 0 .75rem .75rem; }
-  .mnav ul ul a { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; padding: .4rem 0; color: rgba(255,255,255,.75); }
+  .mnav ul ul a:not(.btn) { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; padding: .4rem 0; color: rgba(255,255,255,.75); }
   .mnav__cta { display: grid; gap: .75rem; margin-top: 1.5rem; }
-  @media (max-width: 1380px) { .hdr__nav { display: none; } .hdr__cta { margin-left: auto; } .hdr__burger { display: inline-flex; } }
+  @media (max-width: 1380px) { .hdr__nav { display: none; } .hdr__cta { margin-left: auto; } .hdr__burger { display: inline-grid; } }
+  @media (min-width: 1381px) { .mnav { display: none !important; } }
   @media (max-width: 560px) { .hdr__phone span { display: none; } .hdr__quote { display: none; } .hdr__logo img { height: 44px; } }
 </style>

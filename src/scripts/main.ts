@@ -34,24 +34,30 @@ const mnav = $("[data-mnav]");
 let lastY = 0;
 const onScroll = () => {
   const y = window.scrollY;
-  header?.classList.toggle("is-solid", y > 40 || !!mnav?.hidden === false);
-  if (!mnav || mnav.hidden) header?.classList.toggle("is-hidden", y > 500 && y > lastY + 4);
+  const menuOpen = !!mnav && !mnav.hidden;
+  header?.classList.toggle("is-solid", y > 40 || menuOpen);
+  if (!menuOpen) header?.classList.toggle("is-hidden", y > 500 && y > lastY + 4);
   if (y < lastY - 4) header?.classList.remove("is-hidden");
   lastY = y;
 };
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
-burger?.addEventListener("click", () => {
-  const open = burger.getAttribute("aria-expanded") === "true";
-  burger.setAttribute("aria-expanded", String(!open));
-  if (mnav) mnav.hidden = open;
-  header?.classList.add("is-solid");
-  document.body.style.overflow = open ? "" : "hidden";
-  open ? lenis?.start() : lenis?.stop();
-});
-mnav?.addEventListener("click", (e) => {
-  if ((e.target as HTMLElement).closest("a")) { burger?.click(); }
-});
+const setMenu = (open: boolean) => {
+  if (!burger || !mnav) return;
+  burger.setAttribute("aria-expanded", String(open));
+  burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  mnav.hidden = !open;
+  mnav.classList.toggle("is-open", open);
+  header?.classList.remove("is-hidden");
+  header?.classList.toggle("is-solid", open || window.scrollY > 40);
+  // Lock the page behind the menu; the menu itself scrolls natively (data-lenis-prevent).
+  document.documentElement.style.overflow = open ? "hidden" : "";
+  if (open) { lenis?.stop(); mnav.scrollTop = 0; } else lenis?.start();
+};
+burger?.addEventListener("click", () => setMenu(burger.getAttribute("aria-expanded") !== "true"));
+mnav?.addEventListener("click", (e) => { if ((e.target as HTMLElement).closest("a")) setMenu(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && mnav && !mnav.hidden) { setMenu(false); burger?.focus(); } });
+matchMedia("(min-width: 1381px)").addEventListener("change", (m) => { if (m.matches) setMenu(false); });
 
 /* ───────────── Back to top: ring fills with progress, blade grows, click glides home ───────────── */
 const stt = $<HTMLButtonElement>("[data-stt]");
