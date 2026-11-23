@@ -33,4 +33,8 @@ const { eyebrow, heading, intro, items, image } = Astro.props;
   .step__n { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--color-paddock); color: var(--color-clover); font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; }
   .step h3 { font-size: 1.2rem; margin-bottom: .35rem; }
   @media (max-width: 900px) { .steps--img { grid-template-columns: 1fr; } .steps--img .steps__head { position: relative; top: 0; } }
+  @media (max-width: 720px) {
+    .step, .steps:not(.steps--img) .step { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: .9rem; }
+    .step .prose { margin-inline: auto; }
+  }
 </style>

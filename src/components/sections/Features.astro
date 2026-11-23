@@ -38,4 +38,8 @@ const { eyebrow, heading, intro, items, image } = Astro.props;
   :global(.section--dark) .feat__list, :global(.section--dark) .feat__item { border-color: rgba(255,255,255,.12); }
   :global(.section--dark) .feat__ico { background: rgba(184,216,107,.14); color: var(--color-clover); }
   @media (max-width: 900px) { .feat--img { grid-template-columns: 1fr; } .feat--img .feat__head { position: relative; top: 0; } }
+  @media (max-width: 720px) {
+    .feat__item, .feat:not(.feat--img) .feat__item { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: .9rem; padding: 2rem 0; }
+    .feat__item .prose { margin-inline: auto; }
+  }
 </style>
