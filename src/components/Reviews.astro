@@ -33,5 +33,12 @@ import Icon from "./Icon.astro";
   .rev__name { font-weight: 650; color: white; display: grid; }
   .rev__name span { font-weight: 400; font-size: .85rem; color: rgba(255,255,255,.55); }
   @keyframes rev-slide { to { transform: translateX(-50%); } }
+  /* Mobile: no marquee — show every review stacked, each at its natural height */
+  @media (max-width: 720px) {
+    .rev__track { mask-image: none; -webkit-mask-image: none; }
+    .rev__row { animation: none; flex-direction: column; width: auto; padding: 0 var(--gutter); }
+    .rev__card { width: 100%; }
+    .rev__card[aria-hidden] { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) { .rev__row { animation: none; flex-wrap: wrap; width: auto; } .rev__card[aria-hidden] { display: none; } }
 </style>
