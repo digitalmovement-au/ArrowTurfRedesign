@@ -76,5 +76,6 @@ import { whyChooseUs } from "../data/site";
   .stats__list li:hover .stats__ico { transform: translateY(-4px) rotate(-6deg); background: var(--color-clover); color: var(--color-paddock); }
   .stats__v { white-space: nowrap; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 2.8vw, 2.7rem); letter-spacing: -.03em; line-height: 1; color: white; }
   .stats__l { color: rgba(255,255,255,.72); font-size: 1rem; }
+  @media (min-width: 901px) and (max-width: 1180px) { .stats__list li { flex-direction: column; gap: .6rem; } .stats__txt { text-align: center; } }
   @media (max-width: 900px) { .stats__list { grid-template-columns: 1fr; gap: 1.25rem; } .stats__list li { justify-content: flex-start; padding: 0; } .stats__list li + li::before { display: none; } }
 </style>

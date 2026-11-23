@@ -21,7 +21,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined;
   <p class="qf__sub">Free, no-obligation quote. We usually reply the same day.</p>
   <div class="qf__grid">
     <div class="field"><label for={`${id}-name`}>Your name</label><input id={`${id}-name`} name="name" autocomplete="name" placeholder="Jane Smith" required /><span class="err" aria-live="polite"></span></div>
-    <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" placeholder="jane@example.com" required /><span class="err" aria-live="polite"></span></div>
+    <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" placeholder="you@email.com" required /><span class="err" aria-live="polite"></span></div>
     <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" placeholder="0400 000 000" required /><span class="err" aria-live="polite"></span></div>
     <div class="field"><label for={`${id}-suburb`}>Suburb</label><input id={`${id}-suburb`} name="suburb" autocomplete="address-level2" placeholder="Castle Hill" /><span class="err"></span></div>
     {showVariety && (

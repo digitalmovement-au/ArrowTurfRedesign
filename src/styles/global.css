@@ -43,6 +43,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 ::selection { background: var(--color-clover); color: var(--color-paddock); }
