@@ -62,7 +62,7 @@ h1, .t-1 { font-size: clamp(2.6rem, 6.2vw, 5.4rem); letter-spacing: -0.035em; li
 h2, .t-2 { font-size: clamp(2rem, 4vw, 3.4rem); }
 h3, .t-3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); line-height: 1.15; letter-spacing: -0.015em; }
 /* Titles in Title Case (matches the live site's convention). Source text stays as written for SEO. */
-h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transform: capitalize; }
+h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name, .btn, .vc__more, .mbar a, .calc__add { text-transform: capitalize; }
 .lead { font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.55; color: var(--color-ink-soft); max-width: 38em; }
 
 /* Eyebrow: sentence case, a single blade glyph — the only label device on the site */
