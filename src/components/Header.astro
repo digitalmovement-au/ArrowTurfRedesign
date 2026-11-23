@@ -69,15 +69,15 @@ const active = (href: string) => {
   .hdr__logo { flex: none; }
   .hdr__logo img { height: 52px; width: auto; }
   .hdr__nav { margin-inline: auto; }
-  .hdr__nav > ul { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; }
-  .hdr__nav a { display: inline-flex; align-items: center; gap: .25rem; padding: .55rem .75rem; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: .96rem; white-space: nowrap; transition: background .2s, color .2s; }
+  .hdr__nav > ul { display: flex; gap: .15rem; list-style: none; margin: 0; padding: 0; }
+  .hdr__nav a { display: inline-flex; align-items: center; gap: .25rem; padding: .55rem .75rem; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 1.06rem; letter-spacing: .03em; text-transform: uppercase; white-space: nowrap; transition: background .2s, color .2s; }
   .hdr__nav > ul > li > a:hover, .hdr__nav a[aria-current="page"] { background: rgba(255,255,255,.1); }
   .hdr__nav a[aria-current="page"] { color: var(--color-clover); }
   .has-sub { position: relative; }
   .sub { position: absolute; top: 100%; left: -.5rem; padding-top: .6rem; opacity: 0; visibility: hidden; translate: 0 6px; transition: opacity .2s, translate .25s var(--ease-turf), visibility .2s; }
   .has-sub:hover .sub, .has-sub:focus-within .sub { opacity: 1; visibility: visible; translate: 0 0; }
   .sub ul { list-style: none; margin: 0; padding: .5rem; min-width: 260px; background: white; color: var(--color-ink); border-radius: var(--radius-md); box-shadow: 0 20px 40px -12px rgba(22,48,31,.35); }
-  .sub a { display: block; border-radius: var(--radius-sm); padding: .6rem .8rem; }
+  .sub a { display: flex; border-radius: var(--radius-sm); padding: .65rem .85rem; font-size: .95rem; }
   .sub a:hover { background: var(--color-dew); color: var(--color-leaf); }
   .sub a[aria-current="page"] { color: var(--color-leaf); background: var(--color-dew); }
   .hdr__cta { flex: none; display: flex; align-items: center; gap: .75rem; }
@@ -88,10 +88,10 @@ const active = (href: string) => {
   .mnav nav { padding: 1rem var(--gutter) 2rem; }
   .mnav ul { list-style: none; margin: 0; padding: 0; }
   .mnav > nav > ul > li { border-bottom: 1px solid rgba(255,255,255,.08); }
-  .mnav a { display: block; padding: .85rem 0; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; }
+  .mnav a { display: block; padding: .85rem 0; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .02em; }
   .mnav ul ul { padding: 0 0 .75rem .75rem; }
   .mnav ul ul a { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; padding: .4rem 0; color: rgba(255,255,255,.75); }
   .mnav__cta { display: grid; gap: .75rem; margin-top: 1.5rem; }
-  @media (max-width: 1180px) { .hdr__nav { display: none; } .hdr__cta { margin-left: auto; } .hdr__burger { display: inline-flex; } }
+  @media (max-width: 1320px) { .hdr__nav { display: none; } .hdr__cta { margin-left: auto; } .hdr__burger { display: inline-flex; } }
   @media (max-width: 560px) { .hdr__phone span { display: none; } .hdr__quote { display: none; } .hdr__logo img { height: 44px; } }
 </style>
