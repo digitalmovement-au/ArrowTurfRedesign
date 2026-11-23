@@ -50,8 +50,8 @@ const year = new Date().getFullYear();
   .ftr__brand img { height: 84px; width: auto; margin-bottom: 1.25rem; }
   .ftr__brand p { max-width: 34ch; }
   .ftr__social { display: flex; gap: .5rem; margin-top: 1.25rem; }
-  .ftr__social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.08); color: white; transition: background .2s, color .2s; }
-  .ftr__social a:hover { background: var(--color-clover); color: var(--color-paddock); }
+  .ftr__social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.08); color: white; transition: background .2s, color .2s, transform .3s var(--ease-turf); }
+  .ftr .ftr__social a:hover, .ftr .ftr__social a:focus-visible { background: var(--color-clover); color: var(--color-paddock); transform: translateY(-2px); }
   .ftr__h { font-family: var(--font-display); font-weight: 700; color: white; font-size: 1.05rem; margin-bottom: 1rem; }
   .ftr ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
   .ftr a { text-decoration: none; transition: color .2s; }
