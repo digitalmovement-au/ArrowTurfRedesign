@@ -64,11 +64,11 @@ const ring = "Family owned and operated — Grown on the Hawkesbury River — Ov
   .why__photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.4s var(--ease-turf); }
   .why__seal:hover .why__photo img { transform: scale(1.14); }
   .why__badge {
-    position: absolute; right: 4%; bottom: 8%; display: grid; place-items: center; text-align: center; width: 31%; aspect-ratio: 1; border-radius: 50%;
+    position: absolute; right: 4%; bottom: 8%; display: grid; place-items: center; align-content: center; gap: .3rem; text-align: center; width: 31%; aspect-ratio: 1; border-radius: 50%;
     background: var(--color-clover); color: var(--color-paddock); line-height: 1; box-shadow: 0 14px 30px -12px rgba(22,48,31,.5);
   }
   .why__badge strong { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 2.6vw, 2.2rem); letter-spacing: -.03em; }
-  .why__badge span { font-size: clamp(.62rem, .8vw, .75rem); font-weight: 600; max-width: 9ch; margin-top: -.6rem; line-height: 1.15; }
+  .why__badge span { font-size: clamp(.62rem, .8vw, .75rem); font-weight: 600; max-width: 9ch; line-height: 1.15; }
   @keyframes why-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .why__ring { animation: none; } }
 
