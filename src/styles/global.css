@@ -188,12 +188,13 @@ main .btn, .cta .btn, .mnav__cta .btn { min-width: 250px; }
   .feat__item { grid-template-columns: 1fr; justify-items: center; }
   .step { grid-template-columns: 1fr; justify-items: center; }
   /* Contact details stay left-aligned for easy scanning */
-  .cta__list, .ct__list, .ftr__contact { justify-items: start; text-align: left; }
+  .cta__list, .ct__list { justify-items: start; text-align: left; }
+  .ftr__contact { justify-items: center; text-align: center; }
+  footer .ftr__contact a { justify-content: center; }
   .cta__list li, .ct__list li { justify-content: flex-start; }
-  .ftr__top > div:last-child { text-align: left; }
   /* Footer logo and form titles centred */
   .ftr__brand img { margin-inline: auto; }
   .qf__title, .qf__sub { text-align: center; }
-  footer .ftr__bottom { justify-content: center; text-align: center; }
+  footer .ftr__bottom { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .5rem; }
   .stats__list li { justify-content: center !important; }
 }

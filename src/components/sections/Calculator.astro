@@ -27,7 +27,7 @@ import { varieties } from "../../data/site";
       <div><span class="calc__big" data-calc-area>0</span><span class="calc__unit">m² to order</span></div>
       <div class="calc__weight"><span data-calc-weight>—</span><span class="calc__unit">approx. weight at 15–20 kg per m²</span></div>
     </div>
-    <button type="button" class="btn btn--clover calc__send" data-calc-send disabled>Add to my quote</button>
+    <button type="button" class="btn calc__send" data-calc-send disabled>Add to my quote</button>
   </div>
 </div>
 <style>
@@ -50,8 +50,8 @@ import { varieties } from "../../data/site";
   .calc__big { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 5vw, 3.6rem); line-height: 1; color: var(--color-clover); font-variant-numeric: tabular-nums; }
   .calc__weight span:first-child { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
   .calc__unit { font-size: .85rem; color: rgba(255,255,255,.65); margin-top: .3rem; }
-  .calc__send { width: 100%; }
-  .calc__send:disabled { opacity: .45; cursor: not-allowed; }
+  .calc__send { width: 100%; color: white; }
+  .calc__send:disabled { opacity: .55; cursor: not-allowed; }
   @media (max-width: 900px) { .calc { grid-template-columns: 1fr; } }
   @media (max-width: 420px) { .calc__row { grid-template-columns: 1fr auto 1fr auto; } .calc__label { grid-column: 1 / -1; } }
 </style>
