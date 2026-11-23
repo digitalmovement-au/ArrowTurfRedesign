@@ -37,7 +37,8 @@ import Icon from "./Icon.astro";
   @media (max-width: 720px) {
     .rev__track { mask-image: none; -webkit-mask-image: none; }
     .rev__row { animation: none; flex-direction: column; width: auto; padding: 0 var(--gutter); }
-    .rev__card { width: 100%; }
+    .rev__card { width: 100%; text-align: center; align-items: center; }
+    .rev__name { justify-items: center; }
     .rev__card[aria-hidden] { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { .rev__row { animation: none; flex-wrap: wrap; width: auto; } .rev__card[aria-hidden] { display: none; } }
