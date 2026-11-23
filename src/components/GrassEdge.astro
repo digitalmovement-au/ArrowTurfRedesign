@@ -1,0 +1,13 @@
+---
+/** A strip of blades that grows up out of the top edge of a section as it scrolls into view. */
+import { bladeStrip } from "../lib/grass";
+interface Props { seed?: number; tone?: "leaf" | "dark" }
+const { seed = 7, tone = "leaf" } = Astro.props;
+const tones = tone === "dark" ? ["#16301f", "#1d3d28", "#22472f", "#1a3624", "#2c6e3f"] : undefined;
+const blades = bladeStrip(seed, 150, tones);
+---
+<div class="grass-edge grass-edge--top" data-grass-edge aria-hidden="true">
+  <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
+    {blades.map((b) => <path d={b.d} fill={b.fill} />)}
+  </svg>
+</div>

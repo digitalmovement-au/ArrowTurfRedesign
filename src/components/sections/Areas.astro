@@ -1,0 +1,36 @@
+---
+import { md } from "../../lib/md";
+import { business } from "../../data/site";
+import SectionHead from "../SectionHead.astro";
+interface Props { eyebrow?: string; heading: string; intro?: string; areas: string[]; outro?: string }
+const { eyebrow, heading, intro, areas, outro } = Astro.props;
+const sorted = [...areas].sort((a, b) => a.localeCompare(b));
+---
+<div class="areas" data-areas>
+  <div class="areas__head">
+    <SectionHead eyebrow={eyebrow} heading={heading} intro={intro ?? "Every order leaves from our farm at Cornwallis on the Hawkesbury River. Check your suburb below — if it isn’t listed, call us and we’ll confirm."} />
+    <div class="areas__search">
+      <label for="area-q" class="sr-only">Check your suburb</label>
+      <input id="area-q" type="search" placeholder="Check your suburb, e.g. Castle Hill" autocomplete="off" data-area-input />
+      <p class="areas__result" aria-live="polite" data-area-result></p>
+    </div>
+  </div>
+  <ul class="areas__list" data-area-list>
+    {sorted.map((a) => <li data-name={a.toLowerCase()}>{a}</li>)}
+  </ul>
+  {outro && <div class="prose" set:html={md(outro)} />}
+  <template data-area-miss>We may still reach you — call <a href={business.phoneHref}>{business.phone}</a> and we’ll confirm straight away.</template>
+</div>
+<style>
+  .areas__head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
+  .areas__head :global(.section-head) { margin-bottom: 0; }
+  .areas__search input { width: 100%; min-height: 56px; padding: .8rem 1.2rem; border-radius: 999px; border: 1.5px solid var(--color-dew-2); background: white; font: inherit; }
+  .areas__search input:focus { outline: none; border-color: var(--color-leaf); }
+  .areas__result { min-height: 1.6em; margin-top: .6rem; font-size: .95rem; color: var(--color-ink-soft); }
+  .areas__result :global(a) { color: var(--color-leaf); font-weight: 600; }
+  .areas__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .areas__list li { padding: .45rem .9rem; border-radius: 999px; background: white; font-size: .92rem; color: var(--color-ink-soft); transition: background .25s, color .25s, opacity .25s; }
+  .areas__list li.hit { background: var(--color-leaf); color: white; }
+  .areas__list.filtering li:not(.hit) { opacity: .35; }
+  @media (max-width: 800px) { .areas__head { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,59 @@
+---
+import { varieties, business } from "../data/site";
+interface Props { id?: string; title?: string; compact?: boolean; showVariety?: boolean }
+const { id = "quote-form", title = "Get in touch with Arrow Turf", compact = false, showVariety = true } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT as string | undefined;
+---
+<form
+  class:list={["qf", compact && "qf--compact"]}
+  id={id}
+  name="quote"
+  method="POST"
+  action={endpoint ?? "/thanks/"}
+  data-quote-form
+  data-endpoint={endpoint}
+  data-netlify={endpoint ? undefined : "true"}
+  netlify-honeypot="company_website"
+  novalidate
+>
+  <input type="hidden" name="form-name" value="quote" />
+  <p class="qf__title">{title}</p>
+  <p class="qf__sub">Free, no-obligation quote. We usually reply the same day.</p>
+  <div class="qf__grid">
+    <div class="field"><label for={`${id}-name`}>Your name</label><input id={`${id}-name`} name="name" autocomplete="name" required /><span class="err" aria-live="polite"></span></div>
+    <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required /><span class="err" aria-live="polite"></span></div>
+    <div class="field"><label for={`${id}-phone`}>Phone</label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required /><span class="err" aria-live="polite"></span></div>
+    <div class="field"><label for={`${id}-suburb`}>Suburb</label><input id={`${id}-suburb`} name="suburb" autocomplete="address-level2" /><span class="err"></span></div>
+    {showVariety && (
+      <div class="field qf__full"><label for={`${id}-variety`}>Turf variety</label>
+        <select id={`${id}-variety`} name="variety">
+          <option>Not sure — please advise</option>
+          {varieties.map((v) => <option>{v.name}</option>)}
+        </select>
+      </div>
+    )}
+    <div class="field qf__full"><label for={`${id}-project`}>Your project</label><textarea id={`${id}-project`} name="project" placeholder="Rough size of the area, and whether you'd like it delivered or laid." data-project></textarea></div>
+    <p class="hp" aria-hidden="true"><label>Leave this empty <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+  </div>
+  <button class="btn qf__submit" type="submit" data-magnetic>Get my free quote</button>
+  <p class="qf__status" role="status" aria-live="polite"></p>
+  <p class="qf__alt">Or call the farm on <a href={business.phoneHref}>{business.phone}</a></p>
+</form>
+
+<style>
+  .qf { background: white; color: var(--color-ink); border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 0 30px 60px -25px rgba(10,25,15,.55); }
+  .qf__title { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.1; color: var(--color-paddock); }
+  .qf__sub { color: var(--color-ink-soft); font-size: .95rem; margin: .35rem 0 1.25rem; }
+  .qf__grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  .qf__full { grid-column: 1 / -1; }
+  .qf__submit { width: 100%; margin-top: 1.1rem; }
+  .qf__status { font-size: .95rem; margin-top: .75rem; }
+  .qf__status:empty { display: none; }
+  .qf__status.ok { color: var(--color-leaf); font-weight: 600; }
+  .qf__status.bad { color: #b3261e; }
+  .qf__alt { text-align: center; font-size: .9rem; color: var(--color-ink-soft); margin-top: .9rem; }
+  .qf__alt a { color: var(--color-leaf); font-weight: 600; text-decoration: none; }
+  .hp { position: absolute; left: -9999px; }
+  .qf--compact .qf__grid { gap: .7rem; }
+  @media (max-width: 520px) { .qf__grid { grid-template-columns: 1fr; } }
+</style>

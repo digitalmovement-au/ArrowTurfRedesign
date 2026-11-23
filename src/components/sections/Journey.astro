@@ -1,0 +1,72 @@
+---
+/** Pinned, scroll-driven story: paddock → cut → truck → lawn. The truck drives along the road as you scroll. */
+const stages = [
+  { title: "Grown on the Hawkesbury", body: "Every roll starts on our family farm at Cornwallis, on the Hawkesbury River — the same paddocks we’ve worked for over 45 years.", art: "field" },
+  { title: "Cut to order", body: "Nothing sits in a depot. We harvest your turf to suit your delivery or pickup date, so it’s usually ready within a day or two.", art: "roll" },
+  { title: "Delivered on our truck", body: "Six days a week across Greater Sydney. Our trucks carry their own forklift, place pallets near your lawn and take the empties away.", art: "truck" },
+  { title: "Laid on your lawn", body: "Lay it yourself with our guidance, or let our installers handle the prep, underlay and laying from start to finish.", art: "lawn" },
+];
+---
+<section class="jr on-dark" aria-labelledby="jr-title" data-journey>
+  <div class="jr__pin" data-journey-pin>
+    <div class="wrap jr__head">
+      <p class="eyebrow">From our paddock to your place</p>
+      <h2 id="jr-title">How your new lawn gets to you</h2>
+    </div>
+    <div class="jr__viewport">
+      <ol class="jr__track" data-journey-track>
+        {stages.map((s, i) => (
+          <li class="jr__stage">
+            <div class="jr__art" aria-hidden="true">
+              {s.art === "field" && (
+                <svg viewBox="0 0 240 140"><defs><clipPath id="jf"><rect width="240" height="140" rx="18"/></clipPath></defs><g clip-path="url(#jf)"><rect width="240" height="140" fill="#1d3d28"/><circle cx="190" cy="34" r="16" fill="#b8d86b"/>{[0,1,2,3,4,5].map((r) => <path d={`M-10 ${70 + r * 14} Q120 ${60 + r * 14} 250 ${72 + r * 14}`} stroke={r % 2 ? "#2c6e3f" : "#3b8048"} stroke-width="12" fill="none"/>)}<path d="M0 64 Q60 52 120 58 T240 52" stroke="#5a4632" stroke-width="3" fill="none" opacity=".6"/></g></svg>
+              )}
+              {s.art === "roll" && (
+                <svg viewBox="0 0 240 140"><rect width="240" height="140" rx="18" fill="#1d3d28"/><rect x="40" y="88" width="170" height="22" rx="4" fill="#3b8048"/><rect x="40" y="106" width="170" height="6" fill="#5a4632"/><circle cx="62" cy="76" r="30" fill="#5a4632"/><circle cx="62" cy="76" r="24" fill="#3b8048"/><circle cx="62" cy="76" r="15" fill="#5a4632"/><circle cx="62" cy="76" r="9" fill="#2c6e3f"/><path d="M150 40l20-20M160 48l26-14" stroke="#b8d86b" stroke-width="3" stroke-linecap="round"/></svg>
+              )}
+              {s.art === "truck" && (
+                <svg viewBox="0 0 240 140"><rect width="240" height="140" rx="18" fill="#1d3d28"/><rect x="0" y="108" width="240" height="32" fill="#22472f"/><rect x="28" y="62" width="118" height="40" rx="4" fill="#e8ede2"/><rect x="36" y="44" width="30" height="18" fill="#3b8048"/><rect x="70" y="44" width="30" height="18" fill="#2c6e3f"/><rect x="104" y="44" width="30" height="18" fill="#3b8048"/><path d="M146 70h34l18 18v14h-52z" fill="#f4f6f1"/><rect x="160" y="74" width="18" height="12" rx="2" fill="#16301f"/><circle cx="58" cy="106" r="11" fill="#16301f"/><circle cx="58" cy="106" r="4" fill="#b8d86b"/><circle cx="174" cy="106" r="11" fill="#16301f"/><circle cx="174" cy="106" r="4" fill="#b8d86b"/></svg>
+              )}
+              {s.art === "lawn" && (
+                <svg viewBox="0 0 240 140"><rect width="240" height="140" rx="18" fill="#1d3d28"/><path d="M60 58 120 30l60 28v34H60z" fill="#f4f6f1"/><rect x="108" y="66" width="24" height="26" fill="#2c6e3f"/><path d="M0 92h240v48H0z" fill="#3b8048"/>{[0,1,2,3,4,5,6,7].map((c) => <rect x={c * 30} y="92" width="30" height="48" fill={c % 2 ? "#2c6e3f" : "#3b8048"} />)}<circle cx="200" cy="28" r="12" fill="#b8d86b"/></svg>
+              )}
+            </div>
+            <span class="jr__n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="jr__road" aria-hidden="true">
+        <span class="jr__line"><span class="jr__fill" data-journey-fill></span></span>
+        <span class="jr__truck" data-journey-truck>
+          <svg viewBox="0 0 64 32" width="64" height="32"><rect x="2" y="6" width="34" height="16" rx="2" fill="#e8ede2"/><rect x="5" y="1" width="9" height="5" fill="#3b8048"/><rect x="16" y="1" width="9" height="5" fill="#2c6e3f"/><path d="M36 10h12l8 8v6H36z" fill="#b8d86b"/><rect x="42" y="12" width="7" height="5" rx="1" fill="#16301f"/><circle cx="13" cy="25" r="5" fill="#0f2416"/><circle cx="48" cy="25" r="5" fill="#0f2416"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .jr { background: var(--color-paddock); color: white; position: relative; }
+  .jr__pin { padding-block: clamp(4.5rem, 9vw, 7rem); min-height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+  .jr__head { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .jr h2, .jr h3 { color: white; }
+  .jr__viewport { position: relative; }
+  .jr__track { list-style: none; margin: 0; padding: 0 var(--gutter) 0 max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); display: flex; gap: clamp(1rem, 2.5vw, 2rem); width: max-content; will-change: transform; }
+  .jr__stage { width: min(78vw, 400px); }
+  .jr__art svg { width: 100%; height: auto; border-radius: 18px; display: block; }
+  .jr__n { display: block; font-family: var(--font-display); font-weight: 800; font-size: .95rem; color: var(--color-clover); margin: 1.5rem 0 .4rem; }
+  .jr__stage h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); margin-bottom: .6rem; }
+  .jr__stage p { color: rgba(255,255,255,.75); max-width: 36ch; }
+  .jr__road { position: relative; height: 40px; margin: 2.5rem var(--gutter) 0; max-width: calc(var(--max) - var(--gutter) * 2); }
+  .jr__line { position: absolute; left: 0; right: 0; top: 50%; height: 4px; border-radius: 4px; background: rgba(255,255,255,.12); overflow: hidden; }
+  .jr__fill { position: absolute; inset: 0; background: var(--color-clover); transform-origin: left; transform: scaleX(0); }
+  .jr__truck { position: absolute; top: 50%; left: 0; translate: 0 -62%; }
+  @media (min-width: 1100px) { .jr__road { margin-inline: auto; } }
+  /* Without JS / reduced motion: a simple grid */
+  :global(html:not(.js-motion)) .jr__track { width: auto; flex-wrap: wrap; max-width: var(--max); margin-inline: auto; }
+  :global(html:not(.js-motion)) .jr__stage { width: auto; flex: 1 1 240px; }
+  :global(html:not(.js-motion)) .jr__road { display: none; }
+  :global(html:not(.js-motion)) .jr__pin { min-height: 0; }
+</style>

@@ -1,0 +1,18 @@
+---
+import { business } from "../data/site";
+import Icon from "./Icon.astro";
+---
+<div class="mbar" data-mbar>
+  <a href={business.phoneHref} class="mbar__call"><Icon name="phone" size={20} />Call the farm</a>
+  <a href="#quote" class="mbar__quote">Free quote</a>
+</div>
+<style>
+  .mbar { display: none; }
+  @media (max-width: 720px) {
+    .mbar { position: fixed; z-index: 45; left: .75rem; right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding: .4rem; background: var(--color-paddock); border-radius: 999px; box-shadow: 0 16px 40px -10px rgba(10,25,15,.6); transition: transform .4s var(--ease-turf); }
+    .mbar.is-away { transform: translateY(150%); }
+    .mbar a { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 48px; border-radius: 999px; font-weight: 600; text-decoration: none; }
+    .mbar__call { color: white; }
+    .mbar__quote { background: var(--color-clover); color: var(--color-paddock); }
+  }
+</style>

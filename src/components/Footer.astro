@@ -1,0 +1,64 @@
+---
+import { business, nav, img, varieties, services } from "../data/site";
+import Icon from "./Icon.astro";
+import GrassEdge from "./GrassEdge.astro";
+const year = new Date().getFullYear();
+---
+<footer class="ftr on-dark">
+  <GrassEdge seed={41} tone="dark" />
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <img src={img("2024/09/cropped-logo.png")} alt="Arrow Turf" width="140" height="72" loading="lazy" />
+        <p>Your go-to supplier and installer of affordable premium quality instant turf solutions in Sydney. We are a local family-owned and operated turf farm that provides a range of the best instant turf varieties and turf laying services for residential and commercial projects in and around Greater Sydney.</p>
+        <div class="ftr__social">
+          <a href={business.instagram} target="_blank" rel="noopener" aria-label="Arrow Turf on Instagram"><Icon name="instagram" /></a>
+          <a href={business.facebook} target="_blank" rel="noopener" aria-label="Arrow Turf on Facebook"><Icon name="facebook" /></a>
+        </div>
+      </div>
+      <div>
+        <p class="ftr__h">Quick links</p>
+        <ul>{nav.filter((n) => !n.children).map((n) => <li><a href={n.href}>{n.label === "Home" ? "Home" : n.label}</a></li>)}<li><a href="/turf-services-sydney/">Our services</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul>
+      </div>
+      <div>
+        <p class="ftr__h">Turf varieties</p>
+        <ul>{varieties.map((v) => <li><a href={v.href}>{v.name}</a></li>)}</ul>
+      </div>
+      <div>
+        <p class="ftr__h">Services</p>
+        <ul>{services.map((s) => <li><a href={s.href}>{s.title}</a></li>)}</ul>
+      </div>
+      <div>
+        <p class="ftr__h">Contact info</p>
+        <ul class="ftr__contact">
+          <li><a href={business.phoneHref}><Icon name="phone" size={18} />{business.phone}</a></li>
+          <li><a href={`mailto:${business.email}`}><Icon name="mail" size={18} />{business.email}</a></li>
+          <li><a href={business.mapUrl} target="_blank" rel="noopener"><Icon name="pin" size={18} />{business.address}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr__bottom">
+      <p>© {year} Arrow Turf. Grown on the Hawkesbury River.</p>
+      <a href="#top" class="ftr__up">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { position: relative; background: var(--color-paddock); color: rgba(255,255,255,.78); padding: clamp(4rem, 8vw, 6rem) 0 2rem; margin-top: 0; font-size: .97rem; }
+  .ftr__top { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2.5rem; }
+  .ftr__brand img { height: 64px; width: auto; margin-bottom: 1.25rem; }
+  .ftr__brand p { max-width: 34ch; }
+  .ftr__social { display: flex; gap: .5rem; margin-top: 1.25rem; }
+  .ftr__social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.08); color: white; transition: background .2s, color .2s; }
+  .ftr__social a:hover { background: var(--color-clover); color: var(--color-paddock); }
+  .ftr__h { font-family: var(--font-display); font-weight: 700; color: white; font-size: 1.05rem; margin-bottom: 1rem; }
+  .ftr ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+  .ftr a { text-decoration: none; transition: color .2s; }
+  .ftr a:hover { color: var(--color-clover); }
+  .ftr__contact a { display: inline-flex; gap: .55rem; align-items: flex-start; }
+  .ftr__contact :global(svg) { margin-top: .2rem; flex: none; color: var(--color-clover); }
+  .ftr__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); font-size: .88rem; color: rgba(255,255,255,.55); }
+  @media (max-width: 1024px) { .ftr__top { grid-template-columns: 1fr 1fr; } .ftr__brand { grid-column: 1 / -1; } }
+  @media (max-width: 520px) { .ftr__top { grid-template-columns: 1fr; } .ftr { padding-bottom: 6rem; } }
+</style>

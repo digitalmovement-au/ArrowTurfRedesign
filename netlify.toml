@@ -1,0 +1,46 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Old WordPress slugs that the live site still links to internally → their current pages.
+[[redirects]]
+  from = "/matilda-soft-leaf-buffalo/"
+  to = "/matilda-soft-leaf-buffalo-turf-sydney/"
+  status = 301
+[[redirects]]
+  from = "/sir-walter-sift-leaf-buffalo/"
+  to = "/sir-walter-soft-leaf-buffalo-turf-sydney/"
+  status = 301
+[[redirects]]
+  from = "/sir-walter-soft-leaf-buffalo/"
+  to = "/sir-walter-soft-leaf-buffalo-turf-sydney/"
+  status = 301
+[[redirects]]
+  from = "/kikuyu/"
+  to = "/kikuyu-turf-sydney/"
+  status = 301
+[[redirects]]
+  from = "/wintergreen-couch/"
+  to = "/wintergreen-couch-turf-sydney/"
+  status = 301
+[[redirects]]
+  from = "/green-lees-park-couch/"
+  to = "/greenlees-park-couch-sydney/"
+  status = 301
+[[redirects]]
+  from = "/greenlees-park-couch/"
+  to = "/greenlees-park-couch-sydney/"
+  status = 301
+[[redirects]]
+  from = "/user-sitemap/"
+  to = "/sitemap-index.xml"
+  status = 301
+[[redirects]]
+  from = "/sitemap_index.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

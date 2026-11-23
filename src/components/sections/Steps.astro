@@ -1,0 +1,34 @@
+---
+import { md } from "../../lib/md";
+import SectionHead from "../SectionHead.astro";
+import Roll from "../Roll.astro";
+interface Props { eyebrow?: string; heading: string; intro?: string; items: { title: string; body: string }[]; image?: string }
+const { eyebrow, heading, intro, items, image } = Astro.props;
+---
+<div class:list={["steps", image && "steps--img"]}>
+  <div class="steps__head">
+    <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} />
+    {image && <Roll src={image} alt="" class="steps__img" />}
+  </div>
+  <ol class="steps__list" data-steps>
+    {items.map((s, i) => (
+      <li class="step">
+        <span class="step__n" aria-hidden="true">{i + 1}</span>
+        <div><h3>{s.title}</h3><div class="prose" set:html={md(s.body)} /></div>
+      </li>
+    ))}
+  </ol>
+</div>
+<style>
+  .steps--img { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .steps--img .steps__head { position: sticky; top: calc(var(--header-h) + 2rem); }
+  :global(.steps__img) { aspect-ratio: 5 / 4; }
+  .steps__list { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 0; }
+  .steps:not(.steps--img) .steps__list { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; padding: 1.4rem 0; position: relative; }
+  .steps--img .step + .step { border-top: 1px solid color-mix(in srgb, var(--color-paddock) 12%, transparent); }
+  .steps:not(.steps--img) .step { background: white; border-radius: var(--radius-lg); padding: 1.5rem; grid-template-columns: 1fr; }
+  .step__n { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--color-paddock); color: var(--color-clover); font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; }
+  .step h3 { font-size: 1.2rem; margin-bottom: .35rem; }
+  @media (max-width: 900px) { .steps--img { grid-template-columns: 1fr; } .steps--img .steps__head { position: relative; top: 0; } }
+</style>

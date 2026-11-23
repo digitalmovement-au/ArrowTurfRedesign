@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+import { business, img } from "../data/site";
+import type { Faq } from "../data/faqs";
+import { plain } from "../lib/md";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  breadcrumb?: { name: string; path: string }[];
+  faqs?: Faq[];
+  noindex?: boolean;
+}
+const { title, description, ogImage, breadcrumb = [], faqs = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, business.url).href;
+const og = img(ogImage ?? "2026/07/002-cover-photo-1536x672-1.webp");
+
+const org = {
+  "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+  "@id": `${business.url}/#business`,
+  name: business.name,
+  url: business.url,
+  telephone: "+61490779707",
+  email: business.email,
+  image: og,
+  logo: img("2024/09/cropped-logo.png"),
+  description: "Family-owned turf farm on the Hawkesbury River supplying, delivering and installing premium instant turf across Sydney for over 45 years.",
+  address: { "@type": "PostalAddress", streetAddress: business.street, addressLocality: business.locality, addressRegion: business.region, postalCode: business.postcode, addressCountry: "AU" },
+  geo: { "@type": "GeoCoordinates", latitude: business.geo.lat, longitude: business.geo.lng },
+  areaServed: [{ "@type": "City", name: "Sydney" }, { "@type": "Place", name: "Blue Mountains" }, { "@type": "Place", name: "Wollongong" }, { "@type": "Place", name: "Central Coast" }],
+  sameAs: [business.instagram, business.facebook],
+  priceRange: "$$",
+};
+const graph: object[] = [
+  org,
+  { "@type": "WebSite", "@id": `${business.url}/#website`, url: business.url, name: "Arrow Turf", publisher: { "@id": `${business.url}/#business` } },
+  { "@type": "WebPage", "@id": `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { "@id": `${business.url}/#website` }, primaryImageOfPage: og },
+];
+if (breadcrumb.length) {
+  graph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: [{ name: "Home", path: "/" }, ...breadcrumb].map((b, i) => ({ "@type": "ListItem", position: i + 1, name: b.name, item: new URL(b.path, business.url).href })),
+  });
+}
+if (faqs.length) {
+  graph.push({ "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } })) });
+}
+const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+const gtm = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+---
+<!doctype html>
+<html lang="en-AU" id="top">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#16301f" />
+    <link rel="icon" href={img("2024/09/cropped-cropped-logo-32x32.png")} sizes="32x32" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:site_name" content="Arrow Turf" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400..700&display=swap" />
+    <script is:inline>
+      // Decide motion before first paint so reveals never flash.
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!rm) document.documentElement.classList.add("js-motion");
+      })();
+    </script>
+    <script type="application/ld+json" set:html={ld} />
+    {gtm && <script is:inline define:vars={{ gtm }}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',gtm);</script>}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBar />
+    <script>
+      import "../scripts/main.ts";
+    </script>
+  </body>
+</html>

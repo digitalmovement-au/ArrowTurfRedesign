@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Sections from "../components/Sections.astro";
+import Faq from "../components/Faq.astro";
+import Reviews from "../components/Reviews.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { pages } from "../data/pages";
+import type { Page } from "../data/types";
+
+export function getStaticPaths() {
+  return pages.map((p) => ({ params: { slug: p.path.replace(/^\/|\/$/g, "") }, props: { page: p } }));
+}
+const { page } = Astro.props as { page: Page };
+---
+<Base title={page.title} description={page.description} ogImage={page.ogImage} breadcrumb={page.breadcrumb} faqs={page.faqs}>
+  <Hero {...page.hero} breadcrumb={page.breadcrumb} />
+  <Sections sections={page.sections} />
+  {page.faqs && page.faqs.length > 0 && <Faq faqs={page.faqs} heading="Frequently asked questions" eyebrow="Good to know" />}
+  <Reviews />
+  <CtaBand />
+</Base>

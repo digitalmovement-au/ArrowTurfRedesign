@@ -1,0 +1,82 @@
+---
+import { md } from "../../lib/md";
+import Roll from "../Roll.astro";
+import SectionHead from "../SectionHead.astro";
+interface Props { eyebrow?: string; heading: string; groups: { title: string; rows: [string, string][] }[]; suitability?: [string, string][]; note?: string; image?: string; imageAlt?: string }
+const { eyebrow, heading, groups, suitability, note, image, imageAlt = "" } = Astro.props;
+
+/** Turn a spec value into a 0–5 level so tolerances can be shown as a blade meter. */
+const level = (v: string): number | null => {
+  const s = v.toLowerCase();
+  const pct = s.match(/(\d+)%/); if (pct) return Math.round((+pct[1] / 100) * 5);
+  if (s.startsWith("very high")) return 5;
+  if (s.startsWith("medium to high")) return 4;
+  if (s.startsWith("high")) return 4;
+  if (s.startsWith("moderate") || s.startsWith("medium")) return 3;
+  if (s.startsWith("low")) return 1;
+  return null;
+};
+---
+<div class="specs">
+  <div class="specs__intro">
+    <SectionHead eyebrow={eyebrow} heading={heading} />
+    {image && <Roll src={image} alt={imageAlt} class="specs__img" />}
+  </div>
+  <div class="specs__body">
+    {groups.map((g) => (
+      <section class="spec">
+        <h3>{g.title}</h3>
+        <dl>
+          {g.rows.map(([k, v]) => {
+            const lv = g.title === "Tolerances" ? level(v) : null;
+            return (
+              <div class="spec__row">
+                <dt>{k}</dt>
+                <dd>
+                  <span>{v}</span>
+                  {lv !== null && (
+                    <span class="meter" role="img" aria-label={`${lv} out of 5`}>
+                      {[1, 2, 3, 4, 5].map((n) => <i class:list={[n <= lv && "on"]} />)}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
+      </section>
+    ))}
+    {suitability && (
+      <section class="spec spec--wide">
+        <h3>Suitability</h3>
+        <dl>
+          {suitability.map(([k, v]) => <div class="spec__row spec__row--stack"><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+      </section>
+    )}
+    {note && <div class="prose specs__note" set:html={md(note)} />}
+  </div>
+</div>
+
+<style>
+  .specs { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .specs__intro { position: sticky; top: calc(var(--header-h) + 2rem); }
+  :global(.specs__img) { aspect-ratio: 1; margin-top: .5rem; }
+  .specs__body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .spec { background: white; border-radius: var(--radius-md); padding: 1.5rem 1.5rem 1rem; }
+  .spec--wide { grid-column: 1 / -1; }
+  .spec h3 { font-size: 1.15rem; margin-bottom: .75rem; }
+  .spec dl { margin: 0; }
+  .spec__row { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid var(--color-dew-2); font-size: .97rem; }
+  .spec__row dt { color: var(--color-ink-soft); }
+  .spec__row dd { margin: 0; text-align: right; font-weight: 600; display: grid; justify-items: end; gap: .3rem; }
+  .spec__row--stack { flex-direction: column; gap: .2rem; }
+  .spec__row--stack dd { text-align: left; justify-items: start; font-weight: 500; }
+  .meter { display: inline-flex; gap: 3px; align-items: flex-end; height: 16px; }
+  .meter i { width: 5px; height: 100%; border-radius: 3px 3px 1px 1px; background: var(--color-dew-2); transform-origin: bottom; }
+  .meter i:nth-child(1) { height: 50%; } .meter i:nth-child(2) { height: 62%; } .meter i:nth-child(3) { height: 75%; } .meter i:nth-child(4) { height: 88%; }
+  .meter i.on { background: var(--color-leaf); }
+  .specs__note { grid-column: 1 / -1; margin-top: 1rem; }
+  @media (max-width: 960px) { .specs { grid-template-columns: 1fr; } .specs__intro { position: relative; top: 0; } :global(.specs__img) { aspect-ratio: 16 / 9; } }
+  @media (max-width: 600px) { .specs__body { grid-template-columns: 1fr; } }
+</style>

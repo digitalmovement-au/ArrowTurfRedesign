@@ -1,0 +1,85 @@
+import type { Page } from "../types";
+
+export const turfCare: Page = {
+  path: "/turf-care/",
+  title: "Turf Care Guide | Prep, Laying, Watering & Mowing | Arrow Turf",
+  description: "Learn how to prepare soil, lay new turf, water, mow and fertilise so your lawn establishes fast. Expert turf care tips from Sydney turf growers. Read the guide.",
+  ogImage: "2024/10/001-cover-photo-1.jpg",
+  breadcrumb: [{ name: "Turf care", path: "/turf-care/" }],
+  hero: {
+    eyebrow: "Turf care guide",
+    h1: "Turf care guide: how to lay & look after new turf",
+    lead: "Discover our expert turf care tips and services that help Sydney residents and businesses keep their lawns healthy, green and thriving all year round.",
+    image: "2026/05/002-cover-photo-1536x672-1.webp",
+  },
+  sections: [
+    {
+      kind: "steps",
+      id: "prepare",
+      eyebrow: "Step 1 · Preparation",
+      heading: "How to prepare for your new lawn",
+      image: "2024/10/005-who-are-we.jpg",
+      items: [
+        { title: "Clear the old lawn", body: "If you already have a lawn , it’s a good idea to use a product like “Roundup” to kill the existing grass. After the grass is dead remove the turf and top layer of soil." },
+        { title: "Add quality soil", body: "Place new soil by using a top soil mix such as 80/20 Turf underlay. This will give the required drainage and promote deep root growth." },
+        { title: "Spread it evenly", body: "Ensure the turf underlay is laid out evenly and at a depth of around 100-150 mm depending on the quality of soil underneath." },
+        { title: "Optional starter", body: "Your space is now prepared for the new grass to be installed. You can add water crystals or a lawn starter on top of the soil before installing the turf. This will help keep it moist when you water it and on hot days." },
+        { title: "Skip the fertiliser", body: "Do not add fertilizer to the soil as it may burn the roots of the turf." },
+      ],
+    },
+    {
+      kind: "steps",
+      id: "lay",
+      eyebrow: "Step 2 · Laying",
+      heading: "Laying your lawn",
+      image: "2024/10/006-why-get-maxi-roll.jpg",
+      items: [
+        { title: "Work towards the exit", body: "Begin by starting at the furthest point and work towards the exit so you don’t walk over your freshly laid grass." },
+        { title: "Butt the joints tight", body: "Lay the rolls out ensuring joints are butted up tight leaving no gaps or overlaps. If you are laying on a slope, lay across the slope." },
+        { title: "Trim to fit", body: "Use a knife or similar to cut rolls at the end of a row or when needing to trim around objects such as trees." },
+        { title: "Stagger like bricks", body: "Stagger the joints of each row in a brick pattern." },
+        { title: "Roll it smooth", body: "You may use a roller to smooth out any bumps and to tighten the joints in the rolls, although this is not necessary as it will all settle over time." },
+        { title: "Water straight away", body: "Give your new lawn a deep water immediately after laying." },
+      ],
+    },
+    {
+      kind: "features",
+      id: "aftercare",
+      eyebrow: "Step 3 · Turf after care",
+      heading: "Watering, mowing & fertilising",
+      intro: "To ensure your new lawn thrives, please follow these watering instructions:",
+      image: "2024/10/001-why-choose-us.jpg",
+      items: [
+        { icon: "drop", title: "1. Water immediately", body: "Water your lawn thoroughly with a sprinkler right after installation." },
+        { icon: "drop", title: "2. Daily watering", body: "Water deeply 1-2 times a day for the first 3 weeks, 30 minutes in each section with a sprinkler." },
+        { icon: "drop", title: "3. Adjust gradually", body: "After the turf has established, reduce watering to 2-3 times per week or as it needs." },
+        { icon: "mower", title: "Mowing", body: "After 2-3 weeks, your new lawn will be ready for its first mow. The first should just be a trim to get it all even, set your mower on the highest setting to do this. Gradually over time you will be able to lower the height of the cut to the desired height for your variety." },
+        { icon: "leaf", title: "Fertilising", body: "You may fertilise 6-8 weeks after installation. It is recommended that you fertilise 3 times a year – Spring, Summer and Autumn. Ensure you give a deep water after fertilising as it can burn the turf if not watered in correctly." },
+      ],
+    },
+    {
+      kind: "prose",
+      eyebrow: "Start with great turf",
+      heading: "Great turf care starts with the right turf supply Sydney foundation",
+      body: `However well you care for your lawn, results always start with the quality of the turf itself, which is why so many of the tips on this page work best when paired with a genuine [turf supply Sydney](/turf-delivery-sydney/) wide provider. If you’re replacing damaged patches or extending an existing lawn, we can supply matching turf fresh from our farm, and our [turf installation Sydney](/turf-installation-sydney/) team is available if you’d prefer a professional hand with laying it correctly the first time.
+
+Prefer to manage the job yourself? Our [turf pick-up Sydney](/turf-pickup-sydney/) option means you can collect exactly what you need to keep your lawn looking its best. As the turf company Sydney homeowners trust for ongoing advice as well as fresh turf, we’re always happy to help with your care questions long after installation day.`,
+      cta: true,
+    },
+  ],
+  faqs: [
+    { q: "How often should I water my lawn once it's established?", a: "Once your turf has fully established, most lawns only need watering two to three times a week, adjusted for rainfall and season. Watering deeply but less frequently encourages stronger root growth than light, daily watering. As a simple test, if the soil is still moist a few centimetres down, you can usually hold off another day." },
+    { q: "When can I walk on my new lawn?", a: "It’s best to keep foot traffic to a minimum for the first two to three weeks while the roots establish. After that, light use is generally fine, with normal activity levels suitable once the lawn is fully rooted. A gentle tug on a corner of the turf will tell you: if it resists lifting, the roots have taken hold." },
+    { q: "Why is my new turf turning yellow or brown in patches?", a: "This is often a sign of under or overwatering, though it can also result from poor drainage, heat stress, or insufficient sunlight in shaded areas. If the issue persists after adjusting your watering routine, it’s worth getting in touch so we can help diagnose the cause. A photo of the affected area and a quick rundown of your watering schedule is usually all we need to point you in the right direction." },
+    { q: "What fertiliser should I use, and how often?", a: "A general lawn fertiliser suited to your turf variety works well for most properties, applied around three times a year during spring, summer, and autumn. Always water deeply after fertilising to prevent the turf from burning. If you’re unsure which product suits your variety, ask us when you order and we’ll recommend one that matches your grass and soil type." },
+    { q: "How short should I mow my lawn?", a: "Ideal mowing height varies by variety, buffalo grasses generally prefer a slightly higher cut than couch or kikuyu. As a general rule, avoid cutting more than a third of the blade length at any one time to keep the lawn healthy. Scalping the lawn too low stresses the grass and opens the door to weeds, so when in doubt, mow a little higher." },
+    { q: "Do different turf varieties need different levels of care?", a: "Yes. For example, Kikuyu is a fast grower that needs regular mowing, while Sir Walter and Matilda Buffalo require less frequent mowing and watering thanks to their low-maintenance nature. We can advise on care specifics for your particular variety. Matching the variety to your lifestyle from the outset is the easiest way to keep lawn care manageable long term." },
+    { q: "How do I fix bare or damaged patches in my lawn?", a: "Small patches can often be repaired with a matching turf offcut or seed, depending on the variety and size of the area. For larger or recurring bare patches, it’s worth checking for underlying issues such as poor drainage, pests, or insufficient sunlight. We can supply small quantities of matching turf for patch repairs, so you don’t need to reseed and wait for it to blend in." },
+    { q: "Should I aerate my lawn, and how often?", a: "Aerating once or twice a year can help relieve soil compaction and improve water and nutrient absorption, particularly for lawns with heavy foot traffic. Light aeration with a garden fork is usually sufficient for most home lawns. Spring and autumn are ideal times to aerate, as the lawn is actively growing and recovers quickly." },
+    { q: "How do I prepare my lawn for a hot Sydney summer?", a: "Deep, less frequent watering, mowing slightly higher to protect the roots from heat stress, and avoiding fertilising during extreme heat can all help your lawn cope better through summer conditions. Starting these habits in late spring gives your lawn the best chance of heading into the hottest months in strong condition." },
+    { q: "Should I leave grass clippings on the lawn or collect them?", a: "Leaving fine clippings on the lawn after mowing can return nutrients to the soil as they break down, though if clippings are thick or clumped, it’s best to collect them to avoid smothering the grass underneath. Mowing regularly enough that you’re only trimming a small amount each time makes clippings fine enough to leave behind." },
+    { q: "What's the best time of day to water my lawn?", a: "Early morning is generally best, as it allows water to soak in before the heat of the day causes evaporation and reduces the risk of fungal issues that can occur with evening watering. If mornings aren’t practical, late afternoon is the next best option, just early enough for the leaf blades to dry before nightfall." },
+    { q: "How do I know if I'm overwatering or underwatering my lawn?", a: "Overwatered lawns often feel spongy underfoot and may develop fungal patches, while underwatered lawns can appear dull, dry, or start to yellow. Adjusting frequency and observing how the lawn responds over a week or two usually helps identify the right balance. Another quick check is footprints. If the grass springs back after you walk on it, it’s well hydrated; if your footprints linger, it’s thirsty." },
+    { q: "Do I need to worry about pests or grubs affecting my lawn?", a: "Lawn pests such as grubs can occasionally affect turf, particularly during warmer months. Signs include patches that lift easily or attract birds digging at the surface. If you suspect a pest issue, get in touch and we can advise on the best course of action. Caught early, most grub problems are easily treated before they cause lasting damage to your lawn." },
+  ],
+};

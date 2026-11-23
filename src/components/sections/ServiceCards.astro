@@ -1,0 +1,41 @@
+---
+import { services, img } from "../../data/site";
+import SectionHead from "../SectionHead.astro";
+import Icon from "../Icon.astro";
+interface Props { eyebrow?: string; heading: string; intro?: string; exclude?: string }
+const { eyebrow, heading, intro, exclude } = Astro.props;
+const list = services.filter((s) => s.href !== exclude);
+---
+<div>
+  <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} />
+  <ul class="sc">
+    {list.map((s) => (
+      <li>
+        <a href={s.href} class="sc__card">
+          <span class="sc__img"><img src={img(s.image)} alt="" loading="lazy" decoding="async" /></span>
+          <span class="sc__ico"><Icon name={s.icon} /></span>
+          <span class="sc__t">{s.title}</span>
+          <span class="sc__b">{s.blurb}</span>
+          <span class="sc__go" aria-hidden="true"><Icon name="arrow" size={20} /></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+<style>
+  .sc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+  .sc li { grid-column: span 2; }
+  .sc li:nth-child(4), .sc li:nth-child(5) { grid-column: span 3; }
+  .sc__card { position: relative; display: grid; align-content: start; gap: .6rem; height: 100%; padding: 1.5rem; padding-top: 0; border-radius: var(--radius-lg); background: white; text-decoration: none; overflow: hidden; transition: background .3s; }
+  .sc__img { display: block; margin: 0 -1.5rem .5rem; aspect-ratio: 16 / 9; overflow: hidden; }
+  .sc__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease-turf); }
+  .sc__card:hover .sc__img img { transform: scale(1.05); }
+  .sc__ico { display: grid; place-items: center; width: 48px; height: 48px; margin-top: -2.6rem; position: relative; border-radius: 50%; background: var(--color-clover); color: var(--color-paddock); border: 4px solid white; box-sizing: content-box; }
+  .sc__t { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; letter-spacing: -.02em; color: var(--color-paddock); }
+  .sc__b { color: var(--color-ink-soft); font-size: .97rem; max-width: 40ch; }
+  .sc__go { position: absolute; right: 1.25rem; bottom: 1.25rem; color: var(--color-leaf); transition: transform .3s var(--ease-turf); }
+  .sc__card:hover .sc__go { transform: translateX(4px); }
+  .sc__card { padding-bottom: 3rem; }
+  @media (max-width: 900px) { .sc { grid-template-columns: 1fr 1fr; } .sc li, .sc li:nth-child(4), .sc li:nth-child(5) { grid-column: span 1; } }
+  @media (max-width: 560px) { .sc { grid-template-columns: 1fr; } }
+</style>

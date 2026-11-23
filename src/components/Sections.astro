@@ -1,0 +1,58 @@
+---
+import type { Section } from "../data/types";
+import { md } from "../lib/md";
+import Split from "./sections/Split.astro";
+import Features from "./sections/Features.astro";
+import Specs from "./sections/Specs.astro";
+import VarietyCards from "./sections/VarietyCards.astro";
+import ServiceCards from "./sections/ServiceCards.astro";
+import Areas from "./sections/Areas.astro";
+import Steps from "./sections/Steps.astro";
+import Gallery from "./sections/Gallery.astro";
+import Table from "./sections/Table.astro";
+import Video from "./sections/Video.astro";
+import Journey from "./sections/Journey.astro";
+import Calculator from "./sections/Calculator.astro";
+import Compare from "./sections/Compare.astro";
+import Icon from "./Icon.astro";
+interface Props { sections: Section[] }
+const { sections } = Astro.props;
+const tone = (s: Section) => (s.kind === "calculator" || s.kind === "compare" || s.kind === "services" ? "section--white" : "");
+---
+{sections.map((s) => {
+  if (s.kind === "journey") return <Journey />;
+  return (
+    <section class:list={["section", tone(s), (s.kind === "prose") && "section--tight"]} id={s.id}>
+      <div class="wrap">
+        {s.kind === "split" && <Split {...s} />}
+        {s.kind === "prose" && (
+          <div class="prose-block">
+            {s.eyebrow && <p class="eyebrow">{s.eyebrow}</p>}
+            <h2>{s.heading}</h2>
+            <div class="prose prose-block__body" set:html={md(s.body)} />
+            {s.cta && <a class="btn prose-block__cta" href="#quote" data-magnetic>Get a free quote<Icon name="arrow" /></a>}
+          </div>
+        )}
+        {s.kind === "features" && <Features {...s} />}
+        {s.kind === "specs" && <Specs {...s} />}
+        {s.kind === "varieties" && <VarietyCards {...s} />}
+        {s.kind === "services" && <ServiceCards {...s} />}
+        {s.kind === "areas" && <Areas {...s} />}
+        {s.kind === "steps" && <Steps {...s} />}
+        {s.kind === "gallery" && <Gallery {...s} />}
+        {s.kind === "table" && <Table {...s} />}
+        {s.kind === "video" && <Video {...s} />}
+        {s.kind === "calculator" && <Calculator />}
+        {s.kind === "compare" && <Compare {...s} />}
+      </div>
+    </section>
+  );
+})}
+
+<style>
+  .prose-block { display: grid; grid-template-columns: .9fr 1.1fr; gap: 1.5rem clamp(2rem, 6vw, 6rem); align-items: start; padding-top: 2.5rem; border-top: 1px solid color-mix(in srgb, var(--color-paddock) 14%, transparent); }
+  .prose-block .eyebrow { grid-column: 1 / -1; margin-bottom: -.5rem; }
+  .prose-block h2 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); }
+  .prose-block__cta { grid-column: 2; justify-self: start; }
+  @media (max-width: 900px) { .prose-block { grid-template-columns: 1fr; } .prose-block__cta { grid-column: 1; } }
+</style>

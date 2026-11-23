@@ -1,0 +1,69 @@
+---
+import Base from "../layouts/Base.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import Icon from "../components/Icon.astro";
+import Reviews from "../components/Reviews.astro";
+import { business, img } from "../data/site";
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(business.address)}&output=embed`;
+---
+<Base
+  title="Contact Us | Sydney Turf Quotes & Orders | Arrow Turf"
+  description="Contact Arrow Turf for a free turf quote, delivery booking or pickup order. Call the farm on 0490 779 707 or send your project details online today."
+  ogImage="2025/02/Contact-US-Banner-1-1024x447.png"
+  breadcrumb={[{ name: "Contact", path: "/contact/" }]}
+>
+  <section class="ct on-dark" id="quote" aria-labelledby="ct-title">
+    <div class="ct__bg" aria-hidden="true"><img src={img("2025/02/Contact-US-Banner-1.png")} alt="" fetchpriority="high" /></div>
+    <canvas class="ct__grass" data-grass aria-hidden="true"></canvas>
+    <div class="wrap ct__in">
+      <div>
+        <nav aria-label="Breadcrumb" class="ct__crumbs"><a href="/">Home</a> / <span aria-current="page">Contact</span></nav>
+        <p class="eyebrow">Contact</p>
+        <h1 id="ct-title" data-hero-title>Do you have questions? Get in touch!</h1>
+        <ul class="ct__list">
+          <li><Icon name="phone" /><div><span>Call the farm</span><a href={business.phoneHref}>{business.phone}</a></div></li>
+          <li><Icon name="mail" /><div><span>Email</span><a href={`mailto:${business.email}`}>{business.email}</a></div></li>
+          <li><Icon name="pin" /><div><span>The farm</span><a href={business.mapUrl} target="_blank" rel="noopener">{business.address}</a></div></li>
+        </ul>
+        <p class="ct__follow">Follow us</p>
+        <div class="ct__social">
+          <a href={business.instagram} target="_blank" rel="noopener"><Icon name="instagram" />Instagram</a>
+          <a href={business.facebook} target="_blank" rel="noopener"><Icon name="facebook" />Facebook</a>
+        </div>
+      </div>
+      <QuoteForm id="contact-quote" title="Request a free quote" />
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="ct__map">
+        <iframe src={mapSrc} title="Map to the Arrow Turf farm at Cornwallis" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+  <Reviews />
+</Base>
+<style>
+  .ct { position: relative; background: var(--color-paddock); color: white; padding: calc(var(--header-h) + clamp(2.5rem, 6vw, 5rem)) 0 clamp(7rem, 12vw, 10rem); overflow: hidden; isolation: isolate; }
+  .ct__bg { position: absolute; inset: 0; z-index: -2; }
+  .ct__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .ct__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(16,36,23,.93), rgba(16,36,23,.7)), linear-gradient(0deg, rgba(22,48,31,1), transparent 40%); }
+  .ct__grass { position: absolute; left: 0; right: 0; bottom: -2px; width: 100%; height: 180px; z-index: -1; }
+  .ct__in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+  .ct h1 { color: white; max-width: 12ch; }
+  .ct__crumbs { font-size: .9rem; color: rgba(255,255,255,.6); margin-bottom: 1.5rem; }
+  .ct__crumbs a { text-decoration: none; }
+  .ct__list { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 1.25rem; }
+  .ct__list li { display: flex; gap: 1rem; }
+  .ct__list :global(svg) { color: var(--color-clover); flex: none; margin-top: .2rem; }
+  .ct__list span { display: block; font-size: .85rem; color: rgba(255,255,255,.65); }
+  .ct__list a { font-weight: 650; font-size: 1.2rem; text-decoration: none; }
+  .ct__list a:hover { color: var(--color-clover); }
+  .ct__follow { margin-top: 2rem; font-weight: 600; }
+  .ct__social { display: flex; gap: .75rem; margin-top: .75rem; }
+  .ct__social a { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem 1rem; border-radius: 999px; background: rgba(255,255,255,.08); text-decoration: none; }
+  .ct__social a:hover { background: var(--color-clover); color: var(--color-paddock); }
+  .ct__map { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 21 / 9; background: var(--color-dew-2); }
+  .ct__map iframe { width: 100%; height: 100%; border: 0; }
+  @media (max-width: 900px) { .ct__in { grid-template-columns: 1fr; } .ct__map { aspect-ratio: 4 / 3; } }
+</style>

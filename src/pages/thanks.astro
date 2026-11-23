@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import { business } from "../data/site";
+---
+<Base title="Thanks for your enquiry | Arrow Turf" description="We've received your turf enquiry." noindex>
+  <section class="msg">
+    <div class="wrap">
+      <p class="eyebrow">Enquiry received</p>
+      <h1>Thanks — we’ll be in touch shortly</h1>
+      <p class="lead">We usually reply the same day. If your job is urgent, call the farm on <a href={business.phoneHref}>{business.phone}</a>.</p>
+      <a class="btn" href="/">Back to home</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .msg { padding: calc(var(--header-h) + 6rem) 0 8rem; background: var(--color-paddock); color: white; }
+  .msg h1 { color: white; max-width: 14ch; }
+  .msg .lead { color: rgba(255,255,255,.8); margin: 1.5rem 0 2rem; }
+  .msg .lead a { color: var(--color-clover); }
+  .msg .eyebrow { color: var(--color-clover); }
+</style>

@@ -1,0 +1,11 @@
+---
+import { md } from "../lib/md";
+interface Props { eyebrow?: string; heading: string; intro?: string; center?: boolean; level?: 2 | 3; id?: string }
+const { eyebrow, heading, intro, center = false, level = 2, id } = Astro.props;
+const H = level === 2 ? "h2" : "h3";
+---
+<div class:list={["section-head", center && "mx-auto text-center"]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <H id={id}>{heading}</H>
+  {intro && <div class:list={["prose", center && "mx-auto"]} set:html={md(intro)} />}
+</div>

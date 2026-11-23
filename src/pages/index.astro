@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Split from "../components/sections/Split.astro";
+import Features from "../components/sections/Features.astro";
+import VarietyCards from "../components/sections/VarietyCards.astro";
+import Gallery from "../components/sections/Gallery.astro";
+import Journey from "../components/sections/Journey.astro";
+import Calculator from "../components/sections/Calculator.astro";
+import Faq from "../components/Faq.astro";
+import Reviews from "../components/Reviews.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { home } from "../data/pages/home";
+import { whyChooseUs } from "../data/site";
+---
+<Base title={home.title} description={home.description} ogImage={home.ogImage} faqs={home.faqs}>
+  <Hero {...home.hero} home />
+
+  <section class="stats on-dark" aria-label="About the farm">
+    <div class="wrap">
+      <ul class="stats__list">
+        {home.stats.map((s) => (
+          <li>
+            <span class="stats__v" data-count={s.count ?? undefined}>{s.value}</span>
+            <span class="stats__l">{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="wrap">
+      <Gallery {...home.projects} limit={6} />
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap">
+      <VarietyCards {...home.varieties} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><Split {...home.about} cta /></div>
+  </section>
+
+  <Journey />
+
+  <section class="section">
+    <div class="wrap"><Split {...home.company} reverse cta /></div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap"><Features eyebrow={home.why.eyebrow} heading={home.why.heading} items={whyChooseUs} /></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><Calculator /></div>
+  </section>
+
+  <Faq faqs={home.faqs} />
+  <Reviews />
+  <CtaBand />
+</Base>
+
+<style>
+  .stats { background: var(--color-paddock); color: white; padding: 0 0 clamp(2.5rem, 5vw, 4rem); margin-top: -1px; }
+  .stats__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .stats__list li { display: grid; gap: .35rem; padding: .5rem clamp(1rem, 3vw, 2.5rem); border-left: 1px solid rgba(255,255,255,.12); }
+  .stats__list li:first-child { border-left: 0; padding-left: 0; }
+  .stats__v { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.6rem); letter-spacing: -.025em; line-height: 1; color: white; }
+  .stats__l { color: var(--color-clover); font-size: .98rem; }
+  @media (max-width: 720px) { .stats__list { grid-template-columns: 1fr; gap: 1.25rem; } .stats__list li { border-left: 0; padding: 0; } }
+</style>

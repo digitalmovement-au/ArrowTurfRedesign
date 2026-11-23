@@ -1,0 +1,33 @@
+---
+import { md } from "../../lib/md";
+import SectionHead from "../SectionHead.astro";
+import Roll from "../Roll.astro";
+import Icon from "../Icon.astro";
+interface Props { eyebrow?: string; heading: string; intro?: string; columns: [string, string]; rows: [string, string][]; outro?: string; image?: string; cta?: string }
+const { eyebrow, heading, intro, columns, rows, outro, image, cta } = Astro.props;
+---
+<div class:list={["tbl", image && "tbl--img"]}>
+  {image && <Roll src={image} alt="" class="tbl__img" />}
+  <div>
+    <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} />
+    <table>
+      <thead><tr><th scope="col">{columns[0]}</th><th scope="col">{columns[1]}</th></tr></thead>
+      <tbody>{rows.map(([a, b]) => <tr><th scope="row">{a}</th><td>{b}</td></tr>)}</tbody>
+    </table>
+    {outro && <div class="prose tbl__outro" set:html={md(outro)} />}
+    {cta && <a class="btn tbl__cta" href="#quote" data-magnetic>{cta}<Icon name="arrow" /></a>}
+  </div>
+</div>
+<style>
+  .tbl--img { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  :global(.tbl__img) { aspect-ratio: 4 / 5; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius-lg); overflow: hidden; }
+  th, td { text-align: left; padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--color-dew-2); }
+  thead th { background: var(--color-paddock); color: white; font-weight: 600; font-size: .95rem; }
+  tbody th { font-weight: 650; width: 34%; color: var(--color-paddock); }
+  tbody td { color: var(--color-ink-soft); }
+  tbody tr:last-child > * { border-bottom: 0; }
+  .tbl__outro { margin-top: 1.5rem; }
+  .tbl__cta { margin-top: 1.5rem; }
+  @media (max-width: 900px) { .tbl--img { grid-template-columns: 1fr; } :global(.tbl__img) { aspect-ratio: 16/9; } }
+</style>
