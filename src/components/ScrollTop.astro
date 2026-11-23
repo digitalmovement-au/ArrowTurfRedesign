@@ -1,0 +1,38 @@
+---
+/** Back-to-top button: appears once you scroll, its ring fills with page progress and a blade grows inside. */
+---
+<button type="button" class="stt" data-stt aria-label="Back to top">
+  <svg viewBox="0 0 56 56" aria-hidden="true">
+    <circle class="stt__track" cx="28" cy="28" r="25" />
+    <circle class="stt__ring" cx="28" cy="28" r="25" pathLength="100" data-stt-ring />
+    <g class="stt__blade" data-stt-blade>
+      <path d="M28 40 C29 33 31 27 33 20 L31.2 20 C29.8 26 28.7 32 28 40 Z" />
+      <path d="M28 40 C27 33 25.5 28 23 23 L24.8 23 C26.6 28 27.4 33 28 40 Z" />
+    </g>
+    <path class="stt__arrow" d="M22 26 28 20 34 26M28 20v16" />
+  </svg>
+</button>
+
+<style>
+  .stt {
+    position: fixed; right: clamp(1rem, 2.5vw, 2rem); bottom: clamp(1rem, 2.5vw, 2rem); z-index: 44;
+    width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+    background: var(--color-paddock); color: white; box-shadow: 0 14px 30px -12px rgba(10,25,15,.6);
+    opacity: 0; visibility: hidden; transform: translateY(16px) scale(.85);
+    transition: opacity .4s, visibility .4s, transform .5s var(--ease-turf), background .3s;
+  }
+  .stt.is-on { opacity: 1; visibility: visible; transform: none; }
+  .stt:hover { background: var(--color-leaf); }
+  .stt svg { width: 100%; height: 100%; display: block; overflow: visible; transform: rotate(-90deg); }
+  .stt__track { fill: none; stroke: rgba(255,255,255,.14); stroke-width: 3; }
+  .stt__ring { fill: none; stroke: var(--color-clover); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .stt__blade, .stt__arrow { transform: rotate(90deg); transform-origin: 28px 28px; }
+  .stt__blade { fill: var(--color-clover); transform-box: view-box; transition: opacity .3s; }
+  .stt__blade path { transform-origin: 28px 40px; transform: scaleY(var(--grow, 0)); }
+  .stt__arrow { fill: none; stroke: white; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity .3s, transform .4s var(--ease-turf); }
+  .stt:hover .stt__blade, .stt:focus-visible .stt__blade { opacity: 0; }
+  .stt:hover .stt__arrow, .stt:focus-visible .stt__arrow { opacity: 1; transform: rotate(90deg) translateY(-2px); }
+  .stt.is-launch { animation: stt-launch .7s var(--ease-turf); }
+  @keyframes stt-launch { 40% { transform: translateY(-14px) scale(1.06); } 100% { transform: none; } }
+  @media (max-width: 720px) { .stt { bottom: calc(max(.75rem, env(safe-area-inset-bottom)) + 72px); right: 1rem; width: 50px; height: 50px; } }
+</style>

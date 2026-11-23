@@ -5,6 +5,6 @@ interface Props { src: string; alt: string; class?: string; eager?: boolean; siz
 const { src, alt, class: cls = "", eager = false, ratio } = Astro.props;
 ---
 <div class={`roll ${cls}`} data-roll style={ratio ? `aspect-ratio:${ratio}` : undefined}>
-  <img src={img(src)} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" fetchpriority={eager ? "high" : "auto"} />
+  <img data-roll-media src={img(src)} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" fetchpriority={eager ? "high" : "auto"} />
   <span class="roll__cyl" aria-hidden="true"></span>
 </div>

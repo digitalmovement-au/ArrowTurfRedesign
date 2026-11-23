@@ -7,7 +7,7 @@ const { eyebrow, heading, src, poster } = Astro.props;
 <div>
   <SectionHead eyebrow={eyebrow} heading={heading} />
   <div class="vid roll" data-roll>
-    <video src={img(src)} poster={poster ? img(poster) : undefined} controls playsinline muted preload="none"></video>
+    <video data-roll-media src={img(src)} poster={poster ? img(poster) : undefined} controls playsinline muted preload="none"></video>
     <span class="roll__cyl" aria-hidden="true"></span>
   </div>
 </div>

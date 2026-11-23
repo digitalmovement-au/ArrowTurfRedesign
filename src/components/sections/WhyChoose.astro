@@ -19,7 +19,7 @@ const ring = "Family owned and operated — Grown on the Hawkesbury River — Ov
         <defs><path id="why-ring-path" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs>
         <text><textPath href="#why-ring-path" textLength="548" lengthAdjust="spacing">{ring}</textPath></text>
       </svg>
-      <div class="why__photo"><img src={img(image)} alt={imageAlt} loading="lazy" decoding="async" /></div>
+      <div class="why__photo" data-roll style="--roll-r:50%"><img data-roll-media src={img(image)} alt={imageAlt} loading="lazy" decoding="async" /><span class="roll__cyl" aria-hidden="true"></span></div>
       <span class="why__badge"><strong>45+</strong><span>years on the land</span></span>
     </figure>
 

@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import MobileBar from "../components/MobileBar.astro";
+import ScrollTop from "../components/ScrollTop.astro";
 import { business, img } from "../data/site";
 import type { Faq } from "../data/faqs";
 import { plain } from "../lib/md";
@@ -95,6 +96,7 @@ const gtm = import.meta.env.PUBLIC_GTM_ID as string | undefined;
     </main>
     <Footer />
     <MobileBar />
+    <ScrollTop />
     <script>
       import "../scripts/main.ts";
     </script>

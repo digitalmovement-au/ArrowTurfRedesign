@@ -22,13 +22,15 @@
 
 :root {
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --max: 78rem;
+  --max: 1440px;
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 10px;
   --header-h: 76px;
   color-scheme: light;
 }
+
+@media (min-width: 1920px) { :root { --max: 1880px; } }
 
 /* ───────────── Base ───────────── */
 html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
@@ -108,8 +110,9 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transfor
 .roll { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: var(--color-dew-2); isolation: isolate; }
 .roll > img, .roll > video { width: 100%; height: 100%; object-fit: cover; }
 .roll__cyl { display: none; }
-.js-motion .roll[data-roll] > img, .js-motion .roll[data-roll] > video { clip-path: inset(0 100% 0 0 round var(--radius-lg)); }
-.js-motion .roll[data-roll] .roll__cyl {
+.js-motion [data-roll]:not(.is-laid) [data-roll-media] { clip-path: inset(0 100% 0 0 round var(--radius-lg)); }
+[data-roll] { position: relative; overflow: hidden; }
+.js-motion [data-roll] .roll__cyl {
   display: block; position: absolute; top: 0; bottom: 0; left: 0; width: 46px; z-index: 2; pointer-events: none;
   border-radius: 999px;
   background:
@@ -118,8 +121,8 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name { text-transfor
     linear-gradient(90deg, var(--color-loam) 0 22%, #3f6b2c 22% 100%);
   box-shadow: 6px 0 18px rgba(22,48,31,.35), inset -6px 0 10px rgba(0,0,0,.25);
 }
-.roll.is-laid > img, .roll.is-laid > video { clip-path: inset(0 0 0 0 round var(--radius-lg)) !important; }
-.roll.is-laid .roll__cyl { display: none !important; }
+[data-roll].is-laid [data-roll-media] { clip-path: none !important; }
+[data-roll].is-laid .roll__cyl { display: none !important; }
 
 /* ───────────── Grass edge (scroll-grown blades at section tops) ───────────── */
 .grass-edge { position: absolute; left: 0; right: 0; height: 56px; pointer-events: none; z-index: 2; overflow: visible; }

@@ -11,9 +11,9 @@ const list = varieties.filter((v) => v.slug !== exclude && (!only || only.includ
   <SectionHead eyebrow={eyebrow} heading={heading} intro={intro} center={center} />
   <ul class="vc__row" style={`--n:${list.length}`} data-variety-row>
     {list.map((v, i) => (
-      <li class:list={["vc__card", i === 0 && "is-open"]}>
+      <li class:list={["vc__card", i === 0 && "is-open"]} data-roll data-roll-delay={i * 0.12}>
         <a href={v.href} class="vc__link">
-          <img src={img(v.image)} alt={`${v.name} turf`} loading="lazy" decoding="async" />
+          <img data-roll-media src={img(v.image)} alt={`${v.name} turf`} loading="lazy" decoding="async" />
           <span class="vc__shade" aria-hidden="true"></span>
           <span class="vc__tags">{v.tags}</span>
           <span class="vc__body">
@@ -22,6 +22,7 @@ const list = varieties.filter((v) => v.slug !== exclude && (!only || only.includ
             <span class="vc__more">View {v.short}<Icon name="arrow" size={18} /></span>
           </span>
         </a>
+        <span class="roll__cyl" aria-hidden="true"></span>
       </li>
     ))}
   </ul>

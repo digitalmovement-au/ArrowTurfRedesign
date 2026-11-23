@@ -23,12 +23,13 @@ const speeds = [14, -10, 18];
     <div class="pw__cols">
       {cols.map((col, c) => (
         <ul class="pw__col" data-pw-col data-speed={speeds[c]}>
-          {col.map((im) => (
-            <li>
+          {col.map((im, r) => (
+            <li class="pw__item" data-roll data-roll-delay={c * 0.12 + r * 0.05}>
               <button type="button" class="gal__btn pw__tile" data-full={img(im.src)} data-alt={im.alt} aria-label={`View larger: ${im.alt}`}>
-                <img src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
+                <img data-roll-media src={img(im.src)} alt={im.alt} loading="lazy" decoding="async" />
                 <span class="pw__cap" aria-hidden="true"><Icon name="plus" size={18} />View project</span>
               </button>
+              <span class="roll__cyl" aria-hidden="true"></span>
             </li>
           ))}
         </ul>
@@ -59,9 +60,10 @@ const speeds = [14, -10, 18];
     mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
   }
-  .pw__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.75rem, 1.5vw, 1.25rem); width: min(100% - var(--gutter) * 2, 1240px); margin-inline: auto; }
+  .pw__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.75rem, 1.5vw, 1.25rem); width: min(100% - var(--gutter) * 2, var(--max)); margin-inline: auto; }
   .pw__col { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(.75rem, 1.5vw, 1.25rem); align-content: start; will-change: transform; }
   .pw__col:nth-child(2) { margin-top: 18%; }
+  .pw__item { border-radius: var(--radius-lg); }
   .pw__tile { position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in; border-radius: var(--radius-lg); overflow: hidden; background: var(--color-paddock-2); }
   .pw__tile img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transform: scale(1.02); transition: transform 1.1s var(--ease-turf), filter .6s; }
   .pw__tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(16,36,23,.75)); opacity: 0; transition: opacity .5s; }

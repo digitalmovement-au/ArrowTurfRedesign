@@ -54,7 +54,7 @@ const { eyebrow, h1, lead, image, home = false, breadcrumb } = Astro.props;
   .hero__lead { margin-top: 1.5rem; font-size: clamp(1.05rem, 1.4vw, 1.22rem); color: rgba(255,255,255,.82); max-width: 34em; }
   .hero__actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 2rem; }
   .hero__actions .btn--ghost { color: white; }
-  .hero__form { position: relative; z-index: 2; }
+  .hero__form { position: relative; z-index: 2; width: 100%; max-width: 560px; justify-self: end; }
   .crumbs ol { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 0 0 1.5rem; font-size: .9rem; color: rgba(255,255,255,.6); }
   .crumbs li + li::before { content: "/"; margin-right: .4rem; opacity: .5; }
   .crumbs a { text-decoration: none; }
@@ -62,6 +62,7 @@ const { eyebrow, h1, lead, image, home = false, breadcrumb } = Astro.props;
   .crumbs [aria-current] { color: rgba(255,255,255,.9); }
   @media (max-width: 960px) {
     .hero__in { grid-template-columns: 1fr; }
+    .hero__form { justify-self: stretch; max-width: none; }
     .hero__h1 { max-width: 16ch; }
     .hero__bg::after { background: linear-gradient(180deg, rgba(16,36,23,.55), rgba(16,36,23,.88) 55%, rgba(22,48,31,1)); }
   }

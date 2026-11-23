@@ -53,6 +53,29 @@ mnav?.addEventListener("click", (e) => {
   if ((e.target as HTMLElement).closest("a")) { burger?.click(); }
 });
 
+/* ───────────── Back to top: ring fills with progress, blade grows, click glides home ───────────── */
+const stt = $<HTMLButtonElement>("[data-stt]");
+if (stt) {
+  const ring = $<SVGCircleElement>("[data-stt-ring]", stt)!;
+  const blade = $<SVGGElement>("[data-stt-blade]", stt)!;
+  const upd = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    ring.style.strokeDashoffset = String(100 - p * 100);
+    blade.style.setProperty("--grow", String(Math.max(0.15, p)));
+    stt.classList.toggle("is-on", window.scrollY > 600);
+  };
+  window.addEventListener("scroll", upd, { passive: true });
+  window.addEventListener("resize", upd);
+  upd();
+  stt.addEventListener("click", () => {
+    stt.classList.remove("is-launch"); void stt.offsetWidth; stt.classList.add("is-launch");
+    if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+    else window.scrollTo({ top: 0 });
+    ($<HTMLElement>(".skip") ?? document.body).focus?.({ preventScroll: true });
+  });
+}
+
 /* ───────────── "#quote" goes to the nearest quote form ───────────── */
 document.addEventListener("click", (e) => {
   const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href="#quote"]');
@@ -82,11 +105,13 @@ if (mbar) {
 if (motion) {
   // Turf-roll image reveal — the site's signature move.
   $$("[data-roll]").forEach((el) => {
-    const media = el.querySelector("img, video");
+    const media = el.querySelector("[data-roll-media]") ?? el.querySelector("img, video");
     const cyl = el.querySelector<HTMLElement>(".roll__cyl");
-    if (!media || !cyl) return;
-    const tl = gsap.timeline({ paused: true, onComplete: () => el.classList.add("is-laid") });
-    tl.fromTo(media, { clipPath: "inset(0 100% 0 0 round 22px)" }, { clipPath: "inset(0 0% 0 0 round 22px)", duration: 1.25, ease: "power3.inOut" }, 0)
+    if (!media || !cyl) { el.classList.add("is-laid"); return; }
+    const r = getComputedStyle(el).getPropertyValue("--roll-r").trim() || "22px";
+    const delay = Number(el.dataset.rollDelay || 0);
+    const tl = gsap.timeline({ paused: true, delay, onComplete: () => el.classList.add("is-laid") });
+    tl.fromTo(media, { clipPath: `inset(0 100% 0 0 round ${r})` }, { clipPath: `inset(0 0% 0 0 round ${r})`, duration: 1.25, ease: "power3.inOut" }, 0)
       .fromTo(cyl, { xPercent: 0, left: 0, scaleY: 1, opacity: 1 }, { left: "100%", xPercent: -100, scaleY: 0.82, duration: 1.25, ease: "power3.inOut" }, 0)
       .to(cyl, { opacity: 0, duration: 0.25 }, 1.05);
     ScrollTrigger.create({ trigger: el, start: "top 82%", once: true, onEnter: () => tl.play() });
