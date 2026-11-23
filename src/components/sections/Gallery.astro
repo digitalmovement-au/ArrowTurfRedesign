@@ -31,6 +31,7 @@ const { eyebrow, heading, intro, images, limit, id } = Astro.props;
   .gal__btn img { width: 100%; height: auto; transition: transform 1s var(--ease-turf); }
   .gal__btn:hover img { transform: scale(1.04); }
   .gal__more { display: flex; justify-content: center; margin-top: 1.5rem; }
+  @media (max-width: 720px) { .gal__grid { columns: 2; column-gap: .6rem; } .gal__item { margin-bottom: .6rem; } .gal__btn { border-radius: var(--radius-md); } }
   .lb { padding: 0; border: 0; margin: 0; background: transparent; width: 100vw; height: 100dvh; max-width: none; max-height: none; overflow: hidden; }
   .lb[open] { display: grid; place-items: center; }
   .lb form { display: contents; }

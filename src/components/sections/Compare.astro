@@ -38,22 +38,31 @@ const needs = [
 </div>
 <style>
   .cmp__needs { border: 0; padding: 0; margin: 0 0 1.75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
-  .cmp__chip { display: inline-flex; align-items: center; gap: .45rem; padding: .6rem 1rem; border-radius: 999px; background: white; cursor: pointer; font-weight: 600; font-size: .95rem; color: var(--color-paddock); transition: background .25s, color .25s; user-select: none; }
+  .cmp__chip { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; padding: .7rem 1.1rem; border-radius: 999px; background: var(--color-dew); box-shadow: inset 0 0 0 1.5px var(--color-dew-2); cursor: pointer; font-weight: 600; font-size: .95rem; color: var(--color-paddock); transition: background .25s, color .25s; user-select: none; }
   .cmp__chip input { position: absolute; opacity: 0; pointer-events: none; }
-  .cmp__chip:has(input:checked) { background: var(--color-leaf); color: white; }
+  .cmp__chip:hover { box-shadow: inset 0 0 0 1.5px var(--color-leaf); }
+  .cmp__chip:has(input:checked) { background: var(--color-leaf); color: white; box-shadow: none; }
   .cmp__chip:has(input:focus-visible) { outline: 3px solid var(--color-clover); outline-offset: 2px; }
   .cmp__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
-  .cmp__item { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1.2fr) 1fr 3.5rem; align-items: center; gap: 1.25rem; padding: .75rem 1.25rem .75rem .75rem; background: white; border-radius: var(--radius-md); transition: transform .5s var(--ease-turf), box-shadow .3s; }
+  .cmp__item { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1.2fr) 1fr 3.5rem; align-items: center; gap: 1.25rem; padding: .75rem 1.25rem .75rem .75rem; background: var(--color-dew); border-radius: var(--radius-md); transition: transform .5s var(--ease-turf), box-shadow .3s; }
   .cmp__item.is-best { box-shadow: inset 0 0 0 2px var(--color-leaf); }
   .cmp__item img { width: 64px; height: 64px; object-fit: cover; border-radius: var(--radius-sm); }
   .cmp__info { display: grid; }
   .cmp__name { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: var(--color-paddock); text-decoration: none; letter-spacing: -.01em; }
   .cmp__name:hover { color: var(--color-leaf); }
   .cmp__tags { font-size: .85rem; color: var(--color-ink-soft); }
-  .cmp__bar { height: 10px; border-radius: 10px; background: var(--color-dew-2); overflow: hidden; }
+  .cmp__bar { height: 10px; border-radius: 10px; background: white; overflow: hidden; }
   .cmp__bar span { display: block; height: 100%; width: 0; background: var(--color-leaf); border-radius: 10px; transition: width .7s var(--ease-turf); }
   .cmp__score { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: var(--color-paddock); }
   .cmp__badge { position: absolute; top: -.6rem; left: 1rem; padding: .15rem .6rem; border-radius: 999px; background: var(--color-clover); color: var(--color-paddock); font-size: .78rem; font-weight: 700; }
   .cmp__note { margin-top: 1rem; font-size: .9rem; color: var(--color-ink-soft); }
-  @media (max-width: 640px) { .cmp__item { grid-template-columns: 52px 1fr 3rem; } .cmp__item img { width: 52px; height: 52px; } .cmp__bar { grid-column: 2 / -1; grid-row: 2; } }
+  @media (max-width: 640px) {
+    .cmp__needs { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .cmp__chip { width: 100%; padding: .75rem .6rem; font-size: .9rem; }
+    .cmp__chip:last-child { grid-column: 1 / -1; }
+    .cmp__item { grid-template-columns: 56px minmax(0, 1fr) auto; gap: .35rem .9rem; padding: .8rem; text-align: left; }
+    .cmp__item img { width: 56px; height: 56px; grid-row: span 2; }
+    .cmp__bar { grid-column: 2 / -1; grid-row: 2; }
+    .cmp__note { text-align: center; }
+  }
 </style>

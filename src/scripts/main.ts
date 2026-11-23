@@ -263,6 +263,7 @@ $$("[data-areas]").forEach((root) => {
   const out = $("[data-area-result]", root)!;
   const miss = $<HTMLTemplateElement>("[data-area-miss]", root)!;
   const items = $$("li", list);
+  $("[data-area-all]", root)?.addEventListener("click", () => list.classList.add("show-all"));
   input.addEventListener("input", () => {
     const q = input.value.trim().toLowerCase();
     let hits = 0;

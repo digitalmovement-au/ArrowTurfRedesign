@@ -92,18 +92,29 @@ export const projects: Page = {
   },
   sections: [
     {
-      kind: "prose",
+      kind: "quoteIntro",
       eyebrow: "The Arrow Turf mark of customer satisfaction",
       heading: "Our projects for residential & commercial customers",
       body: "We here at Arrow Turf have successfully completed many projects for residential and commercial customers in and around Sydney. With our tested-and-proven track record of delivering quality-assured products and services, we are trusted by home and business owners as well as residential and commercial property managers, builders, developers, and real estate agents in Sydney. Take a closer look at the quality of the products and work that we do to discover the unmistakable Arrow Turf Mark of Customer Satisfaction!",
+      review: { name: "Thomas Rance", text: "I can highly recommend Zak and the whole team, I ordered 170sqm of sir Walter buffalo for my front lawn. Very happy with the organisation, delivery and price!" },
     },
     {
-      kind: "gallery",
+      kind: "types",
+      eyebrow: "What we work on",
+      heading: "Lawns of every shape and size",
+      intro: "From compact courtyard makeovers to sprawling acreage properties, every project gets the same fresh-cut turf and attentive service.",
+      items: [
+        { icon: "home", title: "Home lawns", body: "Front and back yards, compact courtyards and townhouse lawns where every square metre counts.", href: "/turf-installation-sydney/", link: "Turf installation", image: "2026/07/1.webp" },
+        { icon: "users", title: "Commercial & strata", body: "Commercial landscapes, strata common areas and developer projects, scheduled around residents and tenants.", href: "/turf-delivery-sydney/", link: "Turf delivery", image: "2026/07/Photo-16-11-2022-8-16-14-AM-1536x2048-1.webp" },
+        { icon: "footprints", title: "Parks & sports fields", body: "Parks, school grounds, ovals and playing fields that need a hard-wearing, seamless finish.", href: "/maxi-roll-turf-laying-sydney/", link: "Maxi roll laying", image: "2026/07/3.webp" },
+        { icon: "roll", title: "Acreage & large sites", body: "Big open areas covered fast with maxi rolls: fewer joins, quicker establishment and a neater finish.", href: "/maxi-roll-turf-sydney/", link: "Maxi roll turf", image: "2026/07/Photo-23-6-2023-9-48-59-AM-1536x2048-1.webp" },
+      ],
+    },
+    {
+      kind: "showcase",
       eyebrow: "Gallery",
       heading: "A track record across every type of project",
-      intro: `From compact courtyard makeovers to sprawling acreage properties, the work showcased here reflects the full range of our [turf supply Sydney](/turf-delivery-sydney/) wide capabilities. Many of these projects combined our [turf installation Sydney](/turf-installation-sydney/) service for a fully finished result, while others saw customers opt for our [turf pick-up Sydney](/turf-pickup-sydney/) option to manage the final stage themselves.
-
-Whatever the scope, each project reflects the same standard of care we bring to every job as a turf company Sydney homeowners, builders, and property managers continue to choose. Browse through the examples below to see the quality, consistency, and craftsmanship behind every lawn we help create, and get in touch if you’d like something similar for your own property.`,
+      intro: `Many of these projects combined our [turf installation Sydney](/turf-installation-sydney/) service for a fully finished result, while others saw customers opt for our [turf pick-up Sydney](/turf-pickup-sydney/) option to manage the final stage themselves. Whatever the scope, each one reflects the same standard of care we bring to every job as a [turf supply Sydney](/turf-delivery-sydney/) wide business.`,
       images: projectImages,
     },
     { kind: "areas", eyebrow: "Where we work", heading: "Turf supplies service locations", areas: serviceAreas },

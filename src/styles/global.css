@@ -96,6 +96,34 @@ h1, h2, h3, .qf__title, .vc__name, .sc__t, .stats__v, .cmp__name, .btn, .vc__mor
 .btn--clover { --bg: var(--color-clover); --fg: var(--color-paddock); }
 .btn--clover:hover { --bg: #c7e283; }
 
+/* ───────────── CTA attention (gentle, never strobing; off for reduced motion) ───────────── */
+.btn:not(.btn--ghost) { overflow: hidden; isolation: isolate; }
+.btn:not(.btn--ghost)::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 45%; z-index: -1; pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%); transform: skewX(-20deg);
+  animation: cta-shine 5s var(--ease-turf) infinite; animation-delay: var(--shine-delay, 1.2s);
+}
+.btn--clover::after { background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.75) 50%, transparent 100%); }
+@keyframes cta-shine { 0%, 62% { left: -60%; } 82%, 100% { left: 130%; } }
+main .btn:nth-of-type(2n)::after { --shine-delay: 2.6s; }
+.qf__submit { --shine-delay: .6s; }
+.btn:hover::after { animation-duration: 1.4s; animation-delay: 0s; }
+
+/* Pulse ring on the always-visible quote buttons */
+.hdr__quote, .mbar__quote { animation: cta-pulse 2.8s ease-out infinite; }
+@keyframes cta-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(184,216,107,.65); }
+  70% { box-shadow: 0 0 0 14px rgba(184,216,107,0); }
+  100% { box-shadow: 0 0 0 0 rgba(184,216,107,0); }
+}
+/* Phone icons give a little ring every few seconds */
+a[href^="tel:"] svg { transform-origin: 50% 50%; animation: cta-ring 4.5s ease-in-out infinite; animation-delay: 1.5s; }
+@keyframes cta-ring { 0%, 84%, 100% { transform: rotate(0); } 86% { transform: rotate(-16deg); } 88% { transform: rotate(14deg); } 90% { transform: rotate(-12deg); } 92% { transform: rotate(10deg); } 94% { transform: rotate(-6deg); } 96% { transform: rotate(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn::after { display: none; }
+  .hdr__quote, .mbar__quote, a[href^="tel:"] svg { animation: none !important; }
+}
+
 /* Equal-width calls to action */
 main .btn, .cta .btn, .mnav__cta .btn { min-width: 250px; }
 .hero__actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 250px)); }
@@ -199,4 +227,11 @@ main .btn, .cta .btn, .mnav__cta .btn { min-width: 250px; }
   .qf__title, .qf__sub { text-align: center; }
   footer .ftr__bottom { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .5rem; }
   .stats__list li { justify-content: center !important; }
+  /* Bullet lists become cards so they read as a deliberate list under centred headings */
+  .split__prose ul, .prose-block__body ul { display: grid; width: 100%; gap: .6rem; }
+  .split__prose li, .prose-block__body li { background: white; border-radius: var(--radius-md); padding: 1rem 1.1rem 1rem 2.75rem; }
+  .split__prose li::before, .prose-block__body li::before { left: 1.1rem; top: 1.25rem; }
+  /* Long eyebrows: keep the blade on the first line */
+  .eyebrow { display: block; max-width: 30ch; margin-inline: auto; margin-bottom: 1rem; text-wrap: balance; }
+  .eyebrow::before { display: inline-block; vertical-align: -3px; margin-right: .45rem; }
 }

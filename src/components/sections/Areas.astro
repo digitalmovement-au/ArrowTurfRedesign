@@ -16,8 +16,9 @@ const sorted = [...areas].sort((a, b) => a.localeCompare(b));
     </div>
   </div>
   <ul class="areas__list" data-area-list>
-    {sorted.map((a) => <li data-name={a.toLowerCase()}>{a}</li>)}
+    {sorted.map((a, i) => <li data-name={a.toLowerCase()} class:list={[i >= 18 && "is-extra"]}>{a}</li>)}
   </ul>
+  <div class="areas__more"><button type="button" class="btn btn--ghost" data-area-all>Show all {sorted.length} suburbs</button></div>
   {outro && <div class="prose" set:html={md(outro)} />}
   <template data-area-miss>We may still reach you — call <a href={business.phoneHref}>{business.phone}</a> and we’ll confirm straight away.</template>
 </div>
@@ -32,5 +33,12 @@ const sorted = [...areas].sort((a, b) => a.localeCompare(b));
   .areas__list li { padding: .45rem .9rem; border-radius: 999px; background: white; font-size: .92rem; color: var(--color-ink-soft); transition: background .25s, color .25s, opacity .25s; }
   .areas__list li.hit { background: var(--color-leaf); color: white; }
   .areas__list.filtering li:not(.hit) { opacity: .35; }
+  .areas__more { display: none; justify-content: center; margin-top: 1.25rem; }
+  @media (max-width: 720px) {
+    .areas__more { display: flex; }
+    .areas__list:not(.show-all):not(.filtering) li.is-extra { display: none; }
+    .areas__list.filtering li:not(.hit) { display: none; }
+    .areas__list.show-all ~ .areas__more { display: none; }
+  }
   @media (max-width: 800px) { .areas__head { grid-template-columns: 1fr; } }
 </style>

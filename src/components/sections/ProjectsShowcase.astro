@@ -6,13 +6,13 @@
 import { img } from "../../data/site";
 import { md } from "../../lib/md";
 import Icon from "../Icon.astro";
-interface Props { eyebrow?: string; heading: string; intro?: string; images: { src: string; alt: string }[]; id?: string }
-const { eyebrow, heading, intro, images, id } = Astro.props;
-const COLS = 3;
+interface Props { eyebrow?: string; heading: string; intro?: string; images: { src: string; alt: string }[]; id?: string; full?: boolean }
+const { eyebrow, heading, intro, images, id, full = false } = Astro.props;
+const COLS = full ? 4 : 3;
 const cols = Array.from({ length: COLS }, (_, c) => images.filter((_, i) => i % COLS === c));
-const speeds = [14, -10, 18];
+const speeds = full ? [5, -4, 6, -3] : [14, -10, 18];
 ---
-<section class="pw on-dark" id={id} data-gallery aria-labelledby="pw-title">
+<section class:list={["pw on-dark", full && "pw--full"]} id={id} data-gallery aria-labelledby="pw-title">
   <div class="wrap pw__head">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h2 id="pw-title">{heading}</h2>
@@ -36,9 +36,11 @@ const speeds = [14, -10, 18];
     </div>
   </div>
 
-  <div class="wrap pw__foot">
-    <a class="btn btn--clover" href="/turf-projects-sydney/" data-magnetic>See all our projects<Icon name="arrow" /></a>
-  </div>
+  {!full && (
+    <div class="wrap pw__foot">
+      <a class="btn btn--clover" href="/turf-projects-sydney/" data-magnetic>See all our projects<Icon name="arrow" /></a>
+    </div>
+  )}
 
   <dialog class="lb" data-lightbox aria-label="Project photo">
     <img alt="" data-lb-img />
@@ -88,6 +90,20 @@ const speeds = [14, -10, 18];
     .pw__col:nth-child(3) { display: none; }
     .pw__window { height: clamp(560px, 95vh, 820px); }
   }
+  /* Projects page on phones: every photo, in a simple two-up grid */
+  @media (max-width: 700px) {
+    .pw--full .pw__window { height: auto; mask-image: none; -webkit-mask-image: none; }
+    .pw--full .pw__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pw--full .pw__col { display: contents; }
+    .pw--full .pw__col:nth-child(3), .pw--full .pw__col:nth-child(4) { display: contents; }
+    .pw--full .pw__tile img { aspect-ratio: 4 / 5; }
+  }
+  .pw--full { padding-bottom: clamp(4rem, 8vw, 6.5rem); }
+  .pw--full .pw__window { height: auto; padding-block: clamp(3rem, 6vw, 5rem) clamp(5rem, 9vw, 8rem); mask-image: none; -webkit-mask-image: none; }
+  .pw--full .pw__cols { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pw--full .pw__col:nth-child(4) { margin-top: 6%; }
+  @media (max-width: 1000px) and (min-width: 701px) { .pw--full .pw__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pw--full .pw__col { display: contents; } }
+  .pw--full .pw__col:nth-child(2) { margin-top: 10%; }
   /* No-motion: show a calm, complete grid instead of a cropped window */
   :global(html:not(.js-motion)) .pw__window { height: auto; mask-image: none; -webkit-mask-image: none; }
   :global(html:not(.js-motion)) .pw__col:nth-child(2) { margin-top: 0; }

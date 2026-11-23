@@ -1,0 +1,32 @@
+---
+import { md } from "../../lib/md";
+import Icon from "../Icon.astro";
+interface Props { eyebrow?: string; heading: string; body: string; review: { name: string; text: string } }
+const { eyebrow, heading, body, review } = Astro.props;
+---
+<div class="qi">
+  <div class="qi__copy">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2>{heading}</h2>
+    <div class="prose qi__prose" set:html={md(body)} />
+  </div>
+  <figure class="qi__quote">
+    <span class="qi__mark" aria-hidden="true">“</span>
+    <span class="qi__stars" role="img" aria-label="5 out of 5 stars">{[1,2,3,4,5].map(() => <Icon name="star" size={20} />)}</span>
+    <blockquote>{review.text}</blockquote>
+    <figcaption><strong>{review.name}</strong><span>Google review</span></figcaption>
+  </figure>
+</div>
+<style>
+  .qi { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+  .qi__prose { margin-top: 1.5rem; }
+  .qi__quote { position: relative; margin: 0; padding: clamp(2rem, 4vw, 3rem); border-radius: var(--radius-lg); background: var(--color-paddock); color: white; overflow: hidden; isolation: isolate; }
+  .qi__quote::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 220px; height: 220px; border-radius: 50%; background: var(--color-leaf); opacity: .35; z-index: -1; }
+  .qi__mark { position: absolute; top: -.15em; right: .2em; font-family: var(--font-display); font-weight: 800; font-size: 11rem; line-height: 1; color: var(--color-clover); opacity: .18; }
+  .qi__stars { display: inline-flex; gap: 3px; color: var(--color-clover); }
+  .qi__quote blockquote { margin: 1.25rem 0 1.75rem; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.85rem); line-height: 1.25; letter-spacing: -.015em; }
+  .qi__quote figcaption { display: grid; gap: .15rem; }
+  .qi__quote figcaption span { color: rgba(255,255,255,.6); font-size: .9rem; }
+  @media (max-width: 900px) { .qi { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .qi__quote { text-align: center; } .qi__stars { justify-content: center; } }
+</style>

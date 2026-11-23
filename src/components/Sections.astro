@@ -15,12 +15,16 @@ import Journey from "./sections/Journey.astro";
 import Calculator from "./sections/Calculator.astro";
 import Compare from "./sections/Compare.astro";
 import Icon from "./Icon.astro";
+import QuoteIntro from "./sections/QuoteIntro.astro";
+import ProjectTypes from "./sections/ProjectTypes.astro";
+import ProjectsShowcase from "./sections/ProjectsShowcase.astro";
 interface Props { sections: Section[] }
 const { sections } = Astro.props;
-const tone = (s: Section) => (s.kind === "calculator" || s.kind === "compare" || s.kind === "services" ? "section--white" : "");
+const tone = (s: Section) => (s.kind === "calculator" || s.kind === "compare" || s.kind === "services" || s.kind === "types" ? "section--white" : "");
 ---
 {sections.map((s) => {
   if (s.kind === "journey") return <Journey />;
+  if (s.kind === "showcase") return <ProjectsShowcase {...s} full />;
   return (
     <section class:list={["section", tone(s), (s.kind === "prose") && "section--tight"]} id={s.id}>
       <div class="wrap">
@@ -44,6 +48,8 @@ const tone = (s: Section) => (s.kind === "calculator" || s.kind === "compare" ||
         {s.kind === "video" && <Video {...s} />}
         {s.kind === "calculator" && <Calculator />}
         {s.kind === "compare" && <Compare {...s} />}
+        {s.kind === "quoteIntro" && <QuoteIntro {...s} />}
+        {s.kind === "types" && <ProjectTypes {...s} />}
       </div>
     </section>
   );

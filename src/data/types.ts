@@ -15,6 +15,9 @@ export type Section =
   | { kind: "services"; id?: string; eyebrow?: string; heading: string; intro?: Md; exclude?: string }
   | { kind: "table"; id?: string; eyebrow?: string; heading: string; intro?: Md; columns: [string, string]; rows: [string, string][]; outro?: Md; image?: string; cta?: string }
   | { kind: "video"; id?: string; eyebrow?: string; heading: string; src: string; poster?: string; caption?: Md }
+  | { kind: "quoteIntro"; id?: string; eyebrow?: string; heading: string; body: Md; review: { name: string; text: string } }
+  | { kind: "types"; id?: string; eyebrow?: string; heading: string; intro?: Md; items: { icon: string; title: string; body: Md; href: string; link: string; image: string }[] }
+  | { kind: "showcase"; id?: string; eyebrow?: string; heading: string; intro?: Md; images: { src: string; alt: string }[] }
   | { kind: "journey"; id?: string }
   | { kind: "calculator"; id?: string }
   | { kind: "compare"; id?: string; eyebrow?: string; heading: string; intro?: Md };
