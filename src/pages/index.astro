@@ -71,7 +71,7 @@ import { whyChooseUs } from "../data/site";
     clip-path: path("M6 0 C7.8 15 10.5 30 12 46 L8.4 46 C7.8 30 7 16 6 0 Z M6 0 C4.2 17 1.8 30 0 46 L3.6 46 C4.2 31 5 17 6 0 Z"); }
   .stats__ico { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; color: var(--color-clover); background: rgba(184,216,107,.1); box-shadow: inset 0 0 0 1.5px rgba(184,216,107,.35); margin-bottom: .35rem; transition: transform .6s var(--ease-turf), background .4s, color .4s; }
   .stats__list li:hover .stats__ico { transform: translateY(-4px) rotate(-6deg); background: var(--color-clover); color: var(--color-paddock); }
-  .stats__v { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 3rem); letter-spacing: -.03em; line-height: 1; color: white; }
+  .stats__v { white-space: nowrap; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 2.8vw, 2.7rem); letter-spacing: -.03em; line-height: 1; color: white; }
   .stats__l { color: rgba(255,255,255,.72); font-size: 1rem; }
   @media (max-width: 720px) { .stats__list { grid-template-columns: 1fr; gap: 1.75rem; } .stats__list li + li::before { left: 50%; top: -.9rem; height: 24px; width: 7px; } }
 </style>
